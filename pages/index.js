@@ -1,7 +1,9 @@
-import React, { Component } from "react";
-import withRedux from "next-redux-wrapper";
-import makeStore from "../store/storeCreater";
-import { changeString, Foo } from "../actions/createActions";
+import React, { Component } from "react"
+import withRedux from "next-redux-wrapper"
+import makeStore from "../store/storeCreater"
+import { changeString, Foo } from "../actions/createActions"
+
+import stylesheet from '../assets/sass/index.scss'
 
 const sample = {
   display: 'flex',
@@ -35,21 +37,12 @@ const sampleText = {
 
 let Page = props => (
   <div style={sample}>
-    <style global jsx>{`
-      html {
-        font-size: 62.5%;
-      }
-      body {
-        color: #333
-        font-family: sans-serif;
-        margin: 0;
-      }
-    `}</style>
+    <style dangerouslySetInnerHTML={{ __html: stylesheet }}/>
     <h1 style={sampleHeading}>Next.js Boilerplate with Redux.</h1>
-    <p style={sampleCopy}>This boilerplate is created by Masayuki.</p>
+    <p className={"commonText"}>This boilerplate is created by Masayuki.</p>
     <h2 style={sampleSubHeading}>Redux Test ( Input text and push submit )</h2>
     <div>
-      <input className={"textBox"} type="text" style={sampleText} />
+      <input className={"textBox commonText"} type="text" />
       <button
         onClick={() => {
           props.onSubmit();
@@ -58,7 +51,7 @@ let Page = props => (
         submit
       </button>
     </div>
-    <p style={sampleText}>String Data: {props.stringData}</p>
+    <p className={"commonText"}>String Data: {props.stringData}</p>
   </div>
 );
 
