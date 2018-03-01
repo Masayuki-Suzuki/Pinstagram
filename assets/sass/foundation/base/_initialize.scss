@@ -1,0 +1,86 @@
+@charset "utf-8";
+/*****************************
+fontawesome
+*****************************/
+//$fontPath: '/fonts/';
+//@font-face {
+//  font-family: 'fontawesome';
+//  src: url("#{$fontPath}fontawesome-webfont.eot");
+//  src: url("#{$fontPath}fontawesome-webfont.eot?#iefix") format("embedded-opentype"), url("#{$fontPath}fontawesome-webfont.woff") format("woff"), url("#{$fontPath}fontawesome-webfont.ttf") format("truetype"), url("#{$fontPath}fontawesome-webfont.svg#fontawesome") format("svg");
+//}
+
+/*****************************
+fontfamily initialisation
+*****************************/
+@font-face {
+  font-family: "Yu Gothic";
+  src: local("Yu Gothic Medium");
+  font-weight: 100;
+}
+@font-face {
+  font-family: "Yu Gothic";
+  src: local("Yu Gothic Medium");
+  font-weight: 200;
+}
+@font-face {
+  font-family: "Yu Gothic";
+  src: local("Yu Gothic Medium");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Yu Gothic";
+  src: local("Yu Gothic Medium");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Yu Gothic";
+  src: local("Yu Gothic Bold");
+  font-weight: bold;
+}
+@font-face {
+  font-family: "Helvetica Neue";
+  src: local("Helvetica Neue Regular");
+  font-weight: 100;
+}
+@font-face {
+  font-family: "Helvetica Neue";
+  src: local("Helvetica Neue Regular");
+  font-weight: 200;
+}
+
+//******************************
+//Base initialize
+//******************************
+h1,h2,h3,h4,h5,h6,p,ul,li,dl,dt,dd{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  transform: rotate(.03deg);
+}
+
+*{
+  box-sizing: border-box;
+}
+
+html{
+  font-size:$base-font-size * 1% !important;
+}
+
+body {
+  color: $font-color;
+  font-family: $font-setting;
+  font-size: inherit;
+  font-weight: $font-weight-origin;
+  -webkit-font-smoothing:antialiased;
+  -webkit-text-size-adjust:100%;
+  -moz-osx-font-smoothing:grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+a{
+  text-decoration: none;
+  &:hover{
+    text-decoration: none;
+  }
+}

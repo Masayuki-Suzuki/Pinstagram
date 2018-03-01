@@ -1,0 +1,34 @@
+$header-padding: 10px;
+
+.header {
+  border-bottom: solid 1px #ccc;
+  display: flex;
+  align-items: center;
+  padding: $header-padding;
+  width: 100%;
+  @media #{$iPhoneX} {
+    padding: $header-padding constant(safe-area-inset-right) $header-padding constant(safe-area-inset-left);
+    padding: $header-padding env(safe-area-inset-right) $header-padding calc(env(safe-area-inset-left));
+  }
+}
+
+.logo {
+  line-height: 1;
+  text-align: center;
+  width: 80px;
+  a {
+    display: inline-block;
+  }
+}
+
+.searchBox {
+  border: 0;
+  border-radius: 4px;
+  background: #eee;
+  color: #333;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 0 0 0 10px;
+  padding: 10px 15px;
+  width: 500px;
+}

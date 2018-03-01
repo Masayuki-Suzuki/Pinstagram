@@ -1,0 +1,28 @@
+//******************************
+//            Mixin
+//******************************
+
+//Rem size fallback
+@mixin rem($size){
+  font-size: $size*1px;
+  font-size: $size/10*1rem;
+}
+
+//Common hover
+@mixin hover($deco: none){
+  &:hover{
+    opacity:0.75;
+    transition: 0.3s ease 0s;
+    text-decoration: $deco;
+  }
+}
+
+//Anchor color unifier
+@mixin pseudo($color:"#00f",$deco:none){
+  &:active,
+  &:link,
+  &:visited{
+    color:$color;
+    text-decoration: $deco;
+  }
+}
