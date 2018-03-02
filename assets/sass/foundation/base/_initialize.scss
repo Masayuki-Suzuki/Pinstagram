@@ -2,12 +2,12 @@
 /*****************************
 fontawesome
 *****************************/
-//$fontPath: '/fonts/';
-//@font-face {
-//  font-family: 'fontawesome';
-//  src: url("#{$fontPath}fontawesome-webfont.eot");
-//  src: url("#{$fontPath}fontawesome-webfont.eot?#iefix") format("embedded-opentype"), url("#{$fontPath}fontawesome-webfont.woff") format("woff"), url("#{$fontPath}fontawesome-webfont.ttf") format("truetype"), url("#{$fontPath}fontawesome-webfont.svg#fontawesome") format("svg");
-//}
+$fontPath: '/fonts/';
+@font-face {
+  font-family: 'fontawesome';
+  src: url("#{$fontPath}fontawesome-webfont.eot");
+  src: url("#{$fontPath}fontawesome-webfont.eot?#iefix") format("embedded-opentype"), url("#{$fontPath}fontawesome-webfont.woff") format("woff"), url("#{$fontPath}fontawesome-webfont.ttf") format("truetype"), url("#{$fontPath}fontawesome-webfont.svg#fontawesome") format("svg");
+}
 
 /*****************************
 fontfamily initialisation
