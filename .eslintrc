@@ -23,5 +23,11 @@
       }
     ],
     "jsx-a11y/anchor-is-valid": false
+  },
+  "globals": {
+    "window": true,
+    "document": true,
+    "location": true,
+    "requestAnimationFrame": true
   }
 }

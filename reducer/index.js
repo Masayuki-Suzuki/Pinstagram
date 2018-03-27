@@ -1,18 +1,21 @@
-import { handleActions } from "redux-actions";
-import { author, comments, post } from "../components/seed";
+import { handleActions } from 'redux-actions'
+import authors from '../components/seed_authors'
+import comments from '../components/seed_comments'
+import posts from '../components/seed'
 
-const reducer = handleActions({
-  CHANGE_STRING: (state, action) => ({
-    stringData: action.payload
-  }),
-  FOO: (state,action) => ({
-    stringData: 'foo'
-  }),
-  GET_INIT_DATA: (state, action) => ({
-    authors: author,
-    comments,
-    posts: post,
-  })
-}, { stringData: 'MUU' });
+const reducer = handleActions(
+  {
+    GET_INIT_DATA: () => ({
+      authors,
+      comments,
+      posts,
+    }),
+  },
+  {
+    authors: [],
+    comments: [],
+    posts: [],
+  },
+)
 
-export default reducer;
+export default reducer

@@ -1,77 +1,7 @@
-export const author = [
-  {
-    _id: 1,
-    userName: 'testUser1',
-    password: 'pass',
-    fullName: 'test user 1',
-    location: null,
-    photo: null,
-  },
-  {
-    _id: 2,
-    userName: 'testUser2',
-    password: 'pass',
-    fullName: 'test user 2',
-    location: null,
-    photo: null,
-  },
-  {
-    _id: 3,
-    userName: 'testUser3',
-    password: 'pass',
-    fullName: 'test user 3',
-    location: null,
-    photo: null,
-  },
-  {
-    _id: 4,
-    userName: 'testUser4',
-    password: 'pass',
-    fullName: 'test user 4',
-    location: null,
-    photo: null,
-  },
-]
+import authors from './seed_authors'
+import comments from './seed_comments'
 
-export const comments = [
-  {
-    _id: 1,
-    text: 'awesome!!',
-    author: {
-      name: author[1].userName,
-    },
-  },
-  {
-    _id: 2,
-    text: 'I agree with you.',
-    author: {
-      name: author[0].userName,
-    },
-  },
-  {
-    _id: 3,
-    text: 'awesome!!',
-    author: {
-      name: author[1].userName,
-    },
-  },
-  {
-    _id: 4,
-    text: 'cool!!',
-    author: {
-      name: author[2].userName,
-    },
-  },
-  {
-    _id: 5,
-    text: 'That looks like a good breakfast.',
-    author: {
-      name: author[3].userName,
-    },
-  },
-]
-
-export const post = [
+export default [
   {
     _id: 1,
     title: 'Cheeeeeeese cake!!',
@@ -79,7 +9,8 @@ export const post = [
     url: null,
     filename: 'cheese-cake-2034424_1920.jpg',
     author: {
-      name: author[0].userName,
+      _id: authors[0]._id,
+      name: authors[0].userName,
     },
     comments: [
       {
@@ -97,7 +28,8 @@ export const post = [
     url: null,
     filename: 'dessert-3225670_1280.jpg',
     author: {
-      name: author[1].userName,
+      _id: authors[1]._id,
+      name: authors[1].userName,
     },
     comments: [
       {
@@ -115,9 +47,14 @@ export const post = [
     url: null,
     filename: 'strawberry-3230238_1920.jpg',
     author: {
-      name: author[0].userName,
+      _id: authors[0]._id,
+      name: authors[0].userName,
     },
     comments: [
+      {
+        name: comments[2].author.name,
+        text: comments[2].text,
+      },
       {
         name: comments[3].author.name,
         text: comments[3].text,
@@ -125,10 +62,6 @@ export const post = [
       {
         name: comments[4].author.name,
         text: comments[4].text,
-      },
-      {
-        name: comments[5].author.name,
-        text: comments[5].text,
       },
     ],
     like: 31,

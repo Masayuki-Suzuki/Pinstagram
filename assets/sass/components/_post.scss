@@ -1,0 +1,39 @@
+.posts {
+  margin: 0 auto;
+  padding: 40px 0;
+  max-width: 1200px;
+  width: 90%;
+}
+
+.postItem {
+  cursor: pointer;
+  position: relative;
+  padding: 0 10px 20px;
+  width: 25%;
+  &__wrapper {
+    background: rgba(#000,.7);
+    border-radius: 7px;
+    position: absolute;
+    top: 0;
+    left: 10px;
+    height: calc(100% - 20px);
+    width: calc(100% - 20px);
+    opacity: 0;
+  }
+  &__title {
+    color: #fff;
+  }
+  &__image {
+    border-radius: 8px;
+    overflow: hidden;
+    min-height: 0%;
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+}
+
+.item-sizer {
+  width: 25%;
+}
