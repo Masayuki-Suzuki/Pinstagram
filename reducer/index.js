@@ -10,6 +10,9 @@ const reducer = handleActions(
       comments,
       posts,
     }),
+    ADD_LIKE: () => {
+      console.log('click!!')
+    },
   },
   {
     authors: [],
