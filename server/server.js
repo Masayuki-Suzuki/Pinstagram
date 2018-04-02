@@ -1,25 +1,24 @@
-const Koa = require('koa'),
-  static = require('koa-static'),
-  Router = require('koa-router'),
-  next = require('next')
+const Koa = require('koa')
+const Static = require('koa-static')
+const Router = require('koa-router')
+const next = require('next')
 
-const port = parseInt(process.env.PORT, 10) || 3000,
-  dev = process.env.NODE_DEV !== 'production',
-  app = next({ dev }),
-  handle = app.getRequestHandler()
+const port = parseInt(process.env.PORT, 10) || 3000
+const dev = process.env.NODE_DEV !== 'production'
+const app = next({ dev })
+const handle = app.getRequestHandler()
 
 app.prepare().then(() => {
-  const server = new Koa(),
-    router = new Router()
+  const server = new Koa()
+  const router = new Router()
+  server.use(Static('./public'))
+  server.use(router.routes())
 
-  router.get('*', async ctx => {
+  router.get('*', async (ctx) => {
     await handle(ctx.req, ctx.res)
     ctx.respond = false
   })
-
-  server.use(static('./public'))
-  server.use(router.routes())
-  server.listen(port, err => {
+  server.listen(port, (err) => {
     if (err) throw err
     console.log(`Koa > Ready on http://localhost:${port}`)
   })

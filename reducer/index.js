@@ -1,24 +1,33 @@
+import { combineReducers } from 'redux'
 import { handleActions } from 'redux-actions'
-import authors from '../components/seed_authors'
-import comments from '../components/seed_comments'
 import posts from '../components/seed'
 
-const reducer = handleActions(
+const getInitialData = handleActions(
   {
     GET_INIT_DATA: () => ({
-      authors,
-      comments,
       posts,
     }),
-    ADD_LIKE: () => {
-      console.log('click!!')
-    },
   },
   {
-    authors: [],
-    comments: [],
     posts: [],
   },
 )
+
+const formControl = handleActions({
+  SHOW_SIGNUP_FORM: state => ({
+    ...state,
+    isSignUp: true,
+  }),
+  SHOW_LOGIN_FORM: state => ({
+    ...state,
+    isLogIn: true,
+  }),
+}, { isSignUp: false, isLogIn: false })
+
+
+const reducer = combineReducers({
+  getInitialData,
+  formControl,
+})
 
 export default reducer

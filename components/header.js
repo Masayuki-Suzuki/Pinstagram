@@ -26,8 +26,9 @@ const Header = () => {
           </label>
         </form>
       </div>
-      {// Make login system with passport on node after
-      }
+      <div className="auth">
+        <p className="signUpBtn">Sign Up</p>
+      </div>
     </header>
   )
 }

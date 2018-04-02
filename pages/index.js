@@ -1,39 +1,56 @@
-import React from 'react'
+import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
 import makeStore from '../store/storeCreater'
-import { getInitData, addLike } from '../actions/createActions'
+import { getInitData } from '../actions/createActions'
 import Layout from '../components/layout'
 import Posts from '../components/posts'
-import posts from '../components/seed'
-import comments from '../components/seed_comments'
-import authors from '../components/seed_authors'
 
-let Page = props => (
-  <Layout>
-    <Posts rootProps={props} />
-  </Layout>
-)
+/* eslint 'import/no-mutable-exports': 0 */
+// let Page = props => (
+//   <Layout>
+//     <Posts rootProps={props} />
+//   </Layout>
+// )
 
-Page.getInitialProps = ({
-  store, isServer, pathname, query,
-}) => {
-  store.dispatch(getInitData())
+/* eslint 'react/prefer-stateless-function': 0 */
+class Page extends Component {
+  static async getInitialProps({
+    store,
+    isServer,
+    pathname,
+    query
+  }) {
+    store.dispatch(getInitData())
+    return {
+      custom: 'custom',
+    }
+  }
+  render() {
+    return (
+      <Layout>
+        <Posts rootProps={this.props} />
+      </Layout>
+    )
+  }
 }
 
-const clickLikeBtn = (dispatch) => {
-  dispatch(addLike())
+// Page.getInitialProps = () => {
+//   store.dispatch(getInitData())
+// }
+
+const mapStateToProps = state => state
+
+const mapDispatchToProps = (dispatch) => {
+  const clickLikeBtn = () => {
+    console.log('click like button')
+  }
+  return {
+    dispatch,
+    clickLikeBtn,
+  }
 }
 
-const mapStateToProps = state => ({
-  authors,
-  comments,
-  posts,
-})
-
-const mapDispatchToProps = (dispatch, store) => ({
-  clickLikeBtn: new clickLikeBtn(dispatch),
-})
-
+/* eslint no-class-assign: 0 */
 Page = withRedux(makeStore, mapStateToProps, mapDispatchToProps)(Page)
 
 export default Page
