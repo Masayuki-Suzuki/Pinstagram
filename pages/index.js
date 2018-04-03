@@ -1,24 +1,15 @@
 import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
 import makeStore from '../store/storeCreater'
-import { getInitData } from '../actions/createActions'
+import { addLike, getInitData, showLogInForm } from '../actions/createActions'
 import Layout from '../components/layout'
 import Posts from '../components/posts'
-
-/* eslint 'import/no-mutable-exports': 0 */
-// let Page = props => (
-//   <Layout>
-//     <Posts rootProps={props} />
-//   </Layout>
-// )
+import LoginForm from '../components/loginForm'
 
 /* eslint 'react/prefer-stateless-function': 0 */
 class Page extends Component {
   static async getInitialProps({
-    store,
-    isServer,
-    pathname,
-    query
+    store, isServer, pathname, query,
   }) {
     store.dispatch(getInitData())
     return {
@@ -26,27 +17,29 @@ class Page extends Component {
     }
   }
   render() {
+    const RenderLoginForm = ({ isLogIn }) => (!isLogIn ? null : <LoginForm />)
     return (
       <Layout>
-        <Posts rootProps={this.props} />
+        <Posts posts={this.props.postData} clickLikeBtn={this.props.clickLikeBtn} />
+        <RenderLoginForm />
       </Layout>
     )
   }
 }
 
-// Page.getInitialProps = () => {
-//   store.dispatch(getInitData())
-// }
-
 const mapStateToProps = state => state
 
 const mapDispatchToProps = (dispatch) => {
   const clickLikeBtn = () => {
-    console.log('click like button')
+    dispatch(addLike())
+  }
+  const openLoginForm = () => {
+    dispatch(showLogInForm())
   }
   return {
     dispatch,
     clickLikeBtn,
+    openLoginForm,
   }
 }
 

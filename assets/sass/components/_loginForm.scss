@@ -1,0 +1,23 @@
+.loginForm {
+  background: rgba(#000, .7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vw;
+  width: 100vw;
+  overflow: hidden;
+  &__wrapper {
+    background: #fff;
+    border-radius: 6px;
+    padding: 20px;
+  }
+  &__logo {
+    text-align: center;
+    img {
+      width: 50px;
+    }
+  }
+}
