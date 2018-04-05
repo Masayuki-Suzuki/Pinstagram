@@ -1,8 +1,14 @@
-import { createStore, compose } from 'redux'
+import { createStore, compose, applyMiddleware } from 'redux'
 import reducer from '../reducer'
 
+const reduxInvariant = require('redux-immutable-state-invariant')
+
+const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
+const middlewares = []
+middlewares.push(reduxInvariant.default())
+
 const makeStore = (initialState, isServer) => {
-  const store = createStore(reducer, initialState)
+  const store = createStore(reducer, initialState, composeEnhancers(applyMiddleware(...middlewares)))
 
   if (module.hot) {
     module.hot.accept('../reducer/index', () => {

@@ -862,7 +862,7 @@ babel-plugin-transform-strict-mode@^6.24.1, babel-plugin-transform-strict-mode@^
     babel-runtime "^6.22.0"
     babel-types "^6.24.1"
 
-babel-plugin-wrap-in-js@^1.1.1:
+babel-plugin-wrap-in-js@^1.1w.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/babel-plugin-wrap-in-js/-/babel-plugin-wrap-in-js-1.1.1.tgz#437a86a92c0f18ef29ea92184c978848d0480b20"
   dependencies:
@@ -2933,6 +2933,12 @@ invariant@^2.0.0, invariant@^2.2.0, invariant@^2.2.1, invariant@^2.2.2:
   dependencies:
     loose-envify "^1.0.0"
 
+invariant@^2.1.0:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
+  dependencies:
+    loose-envify "^1.0.0"
+
 invert-kv@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/invert-kv/-/invert-kv-1.0.0.tgz#104a8e4aaca6d3d8cd157a8ef8bfab2d7a3ffdb6"
@@ -3222,7 +3228,7 @@ json-stable-stringify@^1.0.1:
   dependencies:
     jsonify "~0.0.0"
 
-json-stringify-safe@~5.0.1:
+json-stringify-safe@^5.0.1, json-stringify-safe@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
 
@@ -4807,6 +4813,13 @@ redux-actions@^2.2.1:
     lodash "^4.13.1"
     lodash-es "^4.17.4"
     reduce-reducers "^0.1.0"
+
+redux-immutable-state-invariant@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/redux-immutable-state-invariant/-/redux-immutable-state-invariant-2.1.0.tgz#308fd3cc7415a0e7f11f51ec997b6379c7055ce1"
+  dependencies:
+    invariant "^2.1.0"
+    json-stringify-safe "^5.0.1"
 
 redux@^3.7.2:
   version "3.7.2"

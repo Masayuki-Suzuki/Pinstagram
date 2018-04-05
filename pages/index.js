@@ -1,10 +1,20 @@
 import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
 import makeStore from '../store/storeCreater'
-import { addLike, getInitData, showLogInForm } from '../actions/createActions'
+import {
+  addLike, getInitData, searchPostData, showLogInForm,
+  showSignUpForm,
+} from '../actions/createActions'
 import Layout from '../components/layout'
 import Posts from '../components/posts'
 import LoginForm from '../components/loginForm'
+
+const RenderLoginForm = ({ formControl }) => {
+  if (formControl.isLogIn){
+    return <LoginForm formControl={formControl} />
+  }
+  return null
+}
 
 /* eslint 'react/prefer-stateless-function': 0 */
 class Page extends Component {
@@ -13,15 +23,20 @@ class Page extends Component {
   }) {
     store.dispatch(getInitData())
     return {
-      custom: 'custom',
+      initState: store.getState(),
     }
   }
   render() {
-    const RenderLoginForm = ({ isLogIn }) => (!isLogIn ? null : <LoginForm />)
     return (
-      <Layout>
+      <Layout
+        userData={this.props.userData}
+        searchPost={this.props.searchPost}
+        openLoginForm={this.props.openLoginForm}
+        onChangeSearchBox={this.props.onChangeSearchBox}
+        dispatch={this.props.dispatch}
+      >
         <Posts posts={this.props.postData} clickLikeBtn={this.props.clickLikeBtn} />
-        <RenderLoginForm />
+        <LoginForm formControl={this.props.formControl}/>
       </Layout>
     )
   }
@@ -33,13 +48,21 @@ const mapDispatchToProps = (dispatch) => {
   const clickLikeBtn = () => {
     dispatch(addLike())
   }
-  const openLoginForm = () => {
-    dispatch(showLogInForm())
+  const openLoginForm = (flag, text) => {
+    dispatch(showLogInForm(flag, text))
+  }
+  const openSignInForm = () => {
+    dispatch(showSignUpForm())
+  }
+  const onChangeSearchBox = (text) => {
+    dispatch(searchPostData(text))
   }
   return {
     dispatch,
     clickLikeBtn,
     openLoginForm,
+    openSignInForm,
+    onChangeSearchBox,
   }
 }
 

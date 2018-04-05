@@ -36,7 +36,12 @@ const userData = handleActions(
       isFetch: false,
     }),
   },
-  { userName: '', email: '' },
+  {
+    id: '',
+    userName: '',
+    email: '',
+    isFetch: false,
+  },
 )
 
 const formControl = handleActions(
@@ -44,23 +49,35 @@ const formControl = handleActions(
     SHOW_SIGNUP_FORM: state => ({
       ...state,
       isSignUp: true,
+      text: '',
     }),
-    SHOW_LOGIN_FORM: state => ({
+    SHOW_LOGIN_FORM: (state, action) => ({
       ...state,
-      isLogIn: true,
+      isLogIn: action.payload.isLogIn,
+      text: action.payload.text,
     }),
     HIDDEN_FORM: state => ({
       ...state,
       isSignUp: false,
       isLogIn: false,
+      text: '',
     }),
   },
-  { isSignUp: false, isLogIn: false },
+  { isSignUp: false, isLogIn: false, text: '' },
 )
+
+const searchPost = handleActions({
+  SEARCH_POST_DATA: (state, action) => ({
+    ...state,
+    text: action.payload.text,
+  }),
+}, { text: '' })
 
 const reducer = combineReducers({
   postData,
   formControl,
+  userData,
+  searchPost,
 })
 
 export default reducer

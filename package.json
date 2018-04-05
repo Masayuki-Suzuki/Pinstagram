@@ -21,7 +21,8 @@
     "react-masonry-component": "^6.0.2",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
-    "redux-actions": "^2.2.1"
+    "redux-actions": "^2.2.1",
+    "redux-immutable-state-invariant": "^2.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^8.0.0",
