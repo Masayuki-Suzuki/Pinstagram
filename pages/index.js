@@ -1,20 +1,34 @@
 import React, { Component } from 'react'
+import branch from 'recompose/branch'
+import renderNothing from 'recompose/renderNothing'
 import withRedux from 'next-redux-wrapper'
 import makeStore from '../store/storeCreater'
 import {
-  addLike, getInitData, searchPostData, showLogInForm,
+  addLike,
+  getInitData,
+  searchPostData,
+  showLogInForm,
   showSignUpForm,
 } from '../actions/createActions'
 import Layout from '../components/layout'
 import Posts from '../components/posts'
 import LoginForm from '../components/loginForm'
 
-const RenderLoginForm = ({ formControl }) => {
-  if (formControl.isLogIn){
-    return <LoginForm formControl={formControl} />
+const isOpenLoginForm = (formControl) => {
+  console.log(formControl)
+  if (formControl.isLogIn) {
+    return true
   }
-  return null
+  return false
 }
+
+const withLoginFormCheck = branch(
+  ({ formControl }) => isOpenLoginForm(formControl),
+  component => component,
+  renderNothing,
+)
+
+const RenderLoginForm = withLoginFormCheck(LoginForm)
 
 /* eslint 'react/prefer-stateless-function': 0 */
 class Page extends Component {
@@ -36,7 +50,7 @@ class Page extends Component {
         dispatch={this.props.dispatch}
       >
         <Posts posts={this.props.postData} clickLikeBtn={this.props.clickLikeBtn} />
-        <LoginForm formControl={this.props.formControl}/>
+        <RenderLoginForm {...this.props} />
       </Layout>
     )
   }

@@ -66,12 +66,15 @@ const formControl = handleActions(
   { isSignUp: false, isLogIn: false, text: '' },
 )
 
-const searchPost = handleActions({
-  SEARCH_POST_DATA: (state, action) => ({
-    ...state,
-    text: action.payload.text,
-  }),
-}, { text: '' })
+const searchPost = handleActions(
+  {
+    SEARCH_POST_DATA: (state, action) => ({
+      ...state,
+      text: action.payload.text,
+    }),
+  },
+  { text: '' },
+)
 
 const reducer = combineReducers({
   postData,
