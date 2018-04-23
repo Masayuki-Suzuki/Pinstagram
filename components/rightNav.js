@@ -2,9 +2,9 @@ import React from 'react'
 import { branch, renderComponent } from 'recompose'
 
 const RenderFormBtn = ({ openLoginForm, openSignUpForm }) => (
-  <div className="authBtn__wrap">
-    <button className="authBtn__btn signUpBtn" onClick={() => openSignUpForm()}>Sign Up</button>
-    <button className="authBtn__btn logInBtn" onClick={() => openLoginForm()} >Log In</button>
+  <div className="authBtn">
+    <button className="cmnBtn cmnBtn--dbl" onClick={() => openSignUpForm()}>Sign Up</button>
+    <button className="cmnBtn" onClick={() => openLoginForm()} >Log In</button>
   </div>
 )
 

@@ -1,19 +1,25 @@
 import React from 'react'
 import FormOverlay from './formOverlay'
 
+const formClickHandler = (e) => {
+  // e.preventDefault()
+  e.stopPropagation()
+}
+
 const SingUpForm = ({ closeForm }) => (
   <FormOverlay closeForm={closeForm}>
-    <h2 className="formOverlay__heading">Sign up to see photos</h2>
+    <h2 className="formOverlay__heading">Welcome to Pinstagram</h2>
+    <h3 className="formOverlay__subheading">Sign up to share photos</h3>
     <p className="formOverlay__lead">Free, unlimited access to content</p>
-    <p className="formOverlay__lead">Discover ather accounts you&lsquo;ll love and new idea</p>
-    <form className="formOverlay">
-      <label htmlFor="formOverlay__email">
-        <input id="formOverlay__email" type="email" placeholder="Email" />
+    <p className="formOverlay__lead">Discover other accounts you&lsquo;ll love and new idea</p>
+    <form className="formOverlay__main">
+      <label className="formOverlay__elm" htmlFor="formOverlay__email">
+        <input id="formOverlay__email" className="formOverlay__input" type="email" placeholder="Email" />
       </label>
-      <label htmlFor="formOverlay__pass">
-        <input id="formOverlay__pass" type="password" placeholder="password" />
+      <label className="formOverlay__elm" htmlFor="formOverlay__pass">
+        <input id="formOverlay__pass" className="formOverlay__input" type="password" placeholder="password" />
       </label>
-      <button>Continue</button>
+      <button className="cmnBtn cmnBtn--dbl formOverlay__submit">Continue</button>
     </form>
   </FormOverlay>
 )

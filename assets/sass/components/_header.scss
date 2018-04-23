@@ -55,10 +55,8 @@ $header-padding: 10px;
 }
 
 .authBtn{
-  &__wrap {
-    display: flex;
-    align-items: center;
-  }
+  display: flex;
+  align-items: center;
   &__btn {
     background: #ccc;
     border: 0;
@@ -82,7 +80,3 @@ $header-padding: 10px;
   }
 }
 
-.signUpBtn {
-  background: #005591;
-  color: #fff;
-}

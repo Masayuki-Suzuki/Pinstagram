@@ -49,7 +49,8 @@ const mapDispatchToProps = (dispatch) => {
   const openSignUpForm = () => {
     dispatch(showSignUpForm())
   }
-  const closeForm = () => {
+  const closeForm = (e) => {
+    console.log(e.target)
     dispatch(hiddenForm())
   }
   const onChangeSearchBox = (text) => {

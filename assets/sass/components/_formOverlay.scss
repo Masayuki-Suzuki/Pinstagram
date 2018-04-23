@@ -1,23 +1,73 @@
 .formOverlay {
-  background: rgba(#000, .6);
+  background: rgba(#000, .75);
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.4rem;
+  text-align: center;
   position: fixed;
   left: 0;
   top: 0;
-  height: 100vw;
+  height: 100vh;
   width: 100vw;
   overflow: hidden;
-  &__wrapper {
+  &__wrap {
     background: #fff;
     border-radius: 6px;
-    padding: 20px;
+    padding: 30px;
   }
   &__logo {
     text-align: center;
+    margin: 0 0 10px;
     img {
-      width: 50px;
+      width: 70px;
     }
   }
+  &__heading {
+    font-size: 3rem;
+    margin: 0px;
+  }
+  &__subheading {
+    color: #999;
+    font-size: 2rem;
+    margin: 0 0 15px;
+  }
+  &__lead {
+    margin: 0 0 3px;
+  }
+  &__main {
+    margin: 20px auto 0;
+  }
+  &__elm {
+    display: block;
+    margin: 0 0 10px;
+  }
+  &__input {
+    border: solid 1px #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    width: 80%;
+  }
+  &__submit {
+    margin: 7px auto 0;
+  }
+  ::-webkit-input-placeholder {
+    color: $placeholder;
+  }
+  :-moz-placeholder {
+    color: $placeholder;
+    opacity: 1;
+  }
+  ::-moz-placeholder {
+    color: $placeholder;
+    opacity: 1;
+  }
+  :-ms-input-placeholder {
+    color: $placeholder;
+  }
+  :placeholder-shown {
+    color: $placeholder;
+  }
 }
+
+

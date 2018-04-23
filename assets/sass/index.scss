@@ -1,9 +1,12 @@
+@import "vendor/normalize";
+
 @import "foundation/variables/variables";
 @import "foundation/base/initialize";
 @import "foundation/mixin/mixin";
 
 //@components
 @import "components/header";
+@import "components/commonBtn";
 @import "components/post";
 @import "components/formOverlay";
 @import "components/loginForm";
