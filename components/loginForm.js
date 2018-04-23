@@ -1,29 +1,19 @@
 import React from 'react'
+import FormOverlay from './formOverlay'
 
-const LoginForm = ({ formControl }) => (
-  <div className="loginForm">
-    <div className="closeBtn loginForm__close">
-      <span className="close__top" />
-      <span className="close__mid" />
-      <span className="close__btm" />
-    </div>
-    <div className="loginForm__wrap">
-      <div className="loginForm__logo">
-        <img src="/img/pinstagram-icon.svg" alt={formControl.isLogIn} />
-      </div>
-      <h2 className="loginForm__heading">Login to see and share photos</h2>
-      <form className="login">
-        <label htmlFor="login__email">
-          <input id="login__email" type="email" placeholder="Email" />
-        </label>
-        <label htmlFor="login__">
-          <input id="login__email" type="email" placeholder="Create password" />
-        </label>
-        <button>Log in</button>
-      </form>
-      <p>{formControl.text}</p>
-    </div>
-  </div>
+const LoginForm = ({ closeForm }) => (
+  <FormOverlay closeForm={closeForm}>
+    <h2 className="formOverlay__heading">Login to see and share photos</h2>
+    <form className="formOverlay">
+      <label htmlFor="formOverlay__email">
+        <input id="formOverlay__email" type="email" placeholder="Email" />
+      </label>
+      <label htmlFor="formOverlay__pass">
+        <input id="formOverlay__pass" type="password" placeholder="password" />
+      </label>
+      <button>Log in</button>
+    </form>
+  </FormOverlay>
 )
 
 export default LoginForm

@@ -1,26 +1,22 @@
 import React from 'react'
+import FormOverlay from './formOverlay'
 
-const SingUpForm = (props) => {
-  const a = 0
-  return (
-    <div className="signUpForm">
-      <div className="signUpForm__logo">
-        <img src="/img/pinstagram-icon.svg" alt="Pinstagram" />
-      </div>
-      <h2 className="loginFrom__heading">Sign up to see photos</h2>
-      <p className="signUpForm__lead">Free, unlimited access to content</p>
-      <p className="signUpForm__lead">Discover ather accounts you&lsquo;ll love and new idea</p>
-      <form className="signUp">
-        <label htmlFor="signUp__email">
-          <input id="signUp__email" type="email" placeholder="Email" />
-        </label>
-        <label htmlFor="signUp__pass">
-          <input id="signUp__pass" type="password" placeholder="Create password" />
-        </label>
-        <button>Continue</button>
-      </form>
-    </div>
-  )
-}
+const SingUpForm = ({ closeForm }) => (
+  <FormOverlay closeForm={closeForm}>
+    <h2 className="formOverlay__heading">Sign up to see photos</h2>
+    <p className="formOverlay__lead">Free, unlimited access to content</p>
+    <p className="formOverlay__lead">Discover ather accounts you&lsquo;ll love and new idea</p>
+    <form className="formOverlay">
+      <label htmlFor="formOverlay__email">
+        <input id="formOverlay__email" type="email" placeholder="Email" />
+      </label>
+      <label htmlFor="formOverlay__pass">
+        <input id="formOverlay__pass" type="password" placeholder="password" />
+      </label>
+      <button>Continue</button>
+    </form>
+  </FormOverlay>
+)
+
 
 export default SingUpForm

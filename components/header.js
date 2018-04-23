@@ -1,29 +1,15 @@
 import React from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
-import { showLogInForm } from '../actions/createActions'
+import RightNav from './rightNav'
 
-const Test = ({ text }) => {
-  return (
-    (text) ? <p>Input: {text}</p> : null
-  )
-}
-
-const RenderFormBtn = ({ userData, openLoginForm, dispatch }) => {
-  const elm = !userData.userName ? (
-    <div className="authBtn__wrap">
-      <button className="authBtn__btn signUpBtn">Sign Up</button>
-      <button className="authBtn__btn logInBtn" onClick={() => dispatch(showLogInForm(true, 'そ↑こ↓'))} >Log In</button>
-    </div>
-  ) : (
-    <div className="userInfo">
-      <p className="user">Welcome! {userData.userName}!</p>
-    </div>
-  )
-  return <div className="auth">{elm}</div>
-}
-
-const Header = ({ userData, searchPost, openLoginForm, onChangeSearchBox, dispatch }) => {
+const Header = (props, {
+  userData,
+  searchPost,
+  openLoginForm,
+  openSignUpForm,
+  onChangeSearchBox,
+}) => {
   const test = (e) => {
     e.preventDefault()
     return false
@@ -48,8 +34,9 @@ const Header = ({ userData, searchPost, openLoginForm, onChangeSearchBox, dispat
           </label>
         </form>
       </div>
-      <RenderFormBtn userData={userData} openLoginForm={openLoginForm} dispatch={dispatch} />
-      {searchPost.text ? <p>{searchPost.text}</p> : null}
+      <div className="rightNav">
+        <RightNav {...props} />
+      </div>
     </header>
   )
 }

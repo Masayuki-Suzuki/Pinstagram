@@ -49,21 +49,20 @@ const formControl = handleActions(
     SHOW_SIGNUP_FORM: state => ({
       ...state,
       isSignUp: true,
-      text: '',
+      isLogIn: false,
     }),
-    SHOW_LOGIN_FORM: (state, action) => ({
+    SHOW_LOGIN_FORM: state => ({
       ...state,
-      isLogIn: action.payload.isLogIn,
-      text: action.payload.text,
+      isLogIn: true,
+      isSignUp: false,
     }),
     HIDDEN_FORM: state => ({
       ...state,
       isSignUp: false,
       isLogIn: false,
-      text: '',
     }),
   },
-  { isSignUp: false, isLogIn: false, text: '' },
+  { isSignUp: false, isLogIn: false },
 )
 
 const searchPost = handleActions(

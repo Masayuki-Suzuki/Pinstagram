@@ -5,6 +5,7 @@
   ],
   "rules": {
     "semi": ["error", "never"],
+    "max-len": ["error", { "code": 300 }],
     "react/jsx-filename-extension": [
       1,
       {

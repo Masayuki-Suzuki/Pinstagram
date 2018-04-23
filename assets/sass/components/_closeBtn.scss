@@ -1,0 +1,31 @@
+.closeBtn {
+  background: transparent;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+  height: 50px;
+  width: 50px;
+  span {
+    background: #fff;
+    display: block;
+    margin-left: -25px;
+    height: 2px;
+    width: 50px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+  }
+  &__top {
+    transform: rotate(-45deg) translateY(0px);
+  }
+  &__middle {
+    background: rgba(255, 255, 255, 0);
+  }
+  &__btm {
+    transform: rotate(45deg) translateY(0px);
+  }
+}

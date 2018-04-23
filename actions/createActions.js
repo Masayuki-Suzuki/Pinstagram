@@ -6,15 +6,9 @@ export const addLike = createAction('ADD_LIKE')
 
 // Form Actions
 export const showSignUpForm = createAction('SHOW_SIGNUP_FORM')
-export const showLogInForm = createAction('SHOW_LOGIN_FORM', (isLogIn = false, text = '') => ({ isLogIn, text }))
-export const hiddenForm = createAction('HIDDEN_FORM', (isSignUp = false, isLogIn = false) => ({
-  isSignUp,
-  isLogIn,
-}))
-export const requestLogin = createAction('REQUEST_LOGIN', (isLogIn = false, isFetch = true) => ({
-  isLogIn,
-  isFetch,
-}))
+export const showLogInForm = createAction('SHOW_LOGIN_FORM')
+export const hiddenForm = createAction('HIDDEN_FORM')
+export const requestLogin = createAction('REQUEST_LOGIN')
 
 // Fetch User Data
 export const initUserData = createAction('INIT_USER_DATA')
