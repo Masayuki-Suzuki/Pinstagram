@@ -1,11 +1,6 @@
 import React from 'react'
 import FormOverlay from './formOverlay'
 
-const formClickHandler = (e) => {
-  // e.preventDefault()
-  e.stopPropagation()
-}
-
 const SingUpForm = ({ closeForm }) => (
   <FormOverlay closeForm={closeForm}>
     <h2 className="formOverlay__heading">Welcome to Pinstagram</h2>
@@ -23,6 +18,5 @@ const SingUpForm = ({ closeForm }) => (
     </form>
   </FormOverlay>
 )
-
 
 export default SingUpForm

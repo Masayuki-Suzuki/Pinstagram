@@ -50,8 +50,9 @@ const mapDispatchToProps = (dispatch) => {
     dispatch(showSignUpForm())
   }
   const closeForm = (e) => {
-    console.log(e.target)
-    dispatch(hiddenForm())
+    if (e.target.classList.contains('formOverlay') || e.target.classList[0].startsWith('closeBtn')) {
+      dispatch(hiddenForm())
+    }
   }
   const onChangeSearchBox = (text) => {
     dispatch(searchPostData(text))

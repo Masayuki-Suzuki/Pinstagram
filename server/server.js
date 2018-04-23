@@ -25,8 +25,8 @@ app.prepare().then(() => {
     }
   })
 
-  User.findOne({ username: 'test' }, (err, testUser) => {
-    if (!testUser) {
+  User.find({ userName: 'testUser' }, (err, testUser) => {
+    if (testUser.length === 0) {
       console.log('test user did not exist; creating test user...')
       testUser = new User({
         email: 'test@test.com',
@@ -36,6 +36,9 @@ app.prepare().then(() => {
         photo: null,
       })
       testUser.save()
+    } else {
+      console.log('test user has already existed; passed creating test user.')
+      console.log(testUser)
     }
   })
 
