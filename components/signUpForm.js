@@ -12,10 +12,11 @@ const submitSignUpHandler = async (e, fetchUserActions, loginFormInput) => {
   e.target.firstChild.firstChild.value = ''
   e.target.children[1].firstChild.value = ''
   e.target.children[2].firstChild.value = ''
-  // const res = await axios.post(SIGN_UP_URL, { email, userName, pass }).catch((err) => {
-  //   fetchUserActions.failedFetchUserData(err)
-  //   throw new Error(err)
-  // })
+  const res = await axios.post(SIGN_UP_URL, { email, userName, pass }).catch((err) => {
+    fetchUserActions.failedFetchUserData(err)
+    throw new Error(err)
+  })
+  console.log('Maybe posted.')
 }
 
 const SingUpForm = props => (

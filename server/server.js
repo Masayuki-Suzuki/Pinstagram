@@ -1,6 +1,7 @@
 const Koa = require('koa')
 const Static = require('koa-static')
 const Router = require('koa-router')
+const bodyParser = require('koa-bodyparser')
 const next = require('next')
 const mongoose = require('mongoose')
 const User = require('./models/user')
@@ -14,6 +15,7 @@ const DB_URL = 'mongodb://localhost/pinstagram'
 app.prepare().then(() => {
   const server = new Koa()
   const router = new Router()
+  server.use(bodyParser())
   server.use(Static('./public'))
   server.use(router.routes())
 
@@ -40,6 +42,13 @@ app.prepare().then(() => {
       console.log('test user has already existed; passed creating test user.')
       console.log(testUser)
     }
+  })
+
+  router.post('/', async(ctx) => {
+    const email = ctx.request.body.email
+    const userName = ctx.request.body.userName
+    const password = ctx.request.body.pass
+
   })
 
   router.get('*', async (ctx) => {

@@ -78,7 +78,7 @@ const mapDispatchToProps = (dispatch) => {
     dispatch(requestUserData())
   }
   const failedFetchUserData = (err) => {
-    console.err(err)
+    console.error(err)
     dispatch(receiveUserDataFailed())
   }
   const sucessedFetchUserData = ({id, userName}) => {
