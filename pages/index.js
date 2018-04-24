@@ -5,10 +5,14 @@ import makeStore from '../store/storeCreater'
 import {
   addLike,
   getInitData,
+  getLoginEmail,
+  getLoginPass,
   hiddenForm,
+  initLoginForm, receiveUserDataFailed, receiveUserDataSuceeded,
+  requestUserData,
   searchPostData,
   showLogInForm,
-  showSignUpForm,
+  showSignUpForm
 } from '../actions/createActions'
 
 import Layout from '../components/layout'
@@ -43,6 +47,7 @@ const mapDispatchToProps = (dispatch) => {
   const clickLikeBtn = () => {
     dispatch(addLike())
   }
+  // For SignUp & Login Form
   const openLoginForm = () => {
     dispatch(showLogInForm())
   }
@@ -54,14 +59,53 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(hiddenForm())
     }
   }
+  // Sign Up & Login handler
+  // Maybe unnecessary
+  const clearLoginForm = () => {
+    dispatch(initLoginForm())
+  }
+  const onChangeEmail = (val) => {
+    dispatch(getLoginEmail(val))
+  }
+  const onChangePass = (val) => {
+    dispatch(getLoginPass(val))
+  }
+  // Fetch user data
+  const clearUserData = () => {
+    dispatch(initUserData())
+  }
+  const fetchUserData = () => {
+    dispatch(requestUserData())
+  }
+  const failedFetchUserData = (err) => {
+    console.err(err)
+    dispatch(receiveUserDataFailed())
+  }
+  const sucessedFetchUserData = ({id, userName}) => {
+    dispatch(receiveUserDataSuceeded({id, userName}))
+  }
+  // For search input box in Header
   const onChangeSearchBox = (text) => {
     dispatch(searchPostData(text))
   }
   return {
+    formActions: {
+      openLoginForm,
+      openSignUpForm,
+      closeForm,
+    },
+    loginActions: {
+      clearLoginForm,
+      onChangeEmail,
+      onChangePass,
+    },
+    fetchUserActions: {
+      clearUserData,
+      fetchUserData,
+      failedFetchUserData,
+      sucessedFetchUserData
+    },
     clickLikeBtn,
-    openLoginForm,
-    openSignUpForm,
-    closeForm,
     onChangeSearchBox,
   }
 }

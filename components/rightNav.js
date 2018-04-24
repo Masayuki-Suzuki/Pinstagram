@@ -1,10 +1,14 @@
 import React from 'react'
 import { branch, renderComponent } from 'recompose'
 
-const RenderFormBtn = ({ openLoginForm, openSignUpForm }) => (
+const RenderFormBtn = ({ formActions }) => (
   <div className="authBtn">
-    <button className="cmnBtn cmnBtn--dbl" onClick={() => openSignUpForm()}>Sign Up</button>
-    <button className="cmnBtn" onClick={() => openLoginForm()} >Log In</button>
+    <button className="cmnBtn cmnBtn--dbl" onClick={() => formActions.openSignUpForm()}>
+      Sign Up
+    </button>
+    <button className="cmnBtn" onClick={() => formActions.openLoginForm()}>
+      Log In
+    </button>
   </div>
 )
 
@@ -21,10 +25,6 @@ const isLogedIn = ({ userData }) => {
   return false
 }
 
-const switchNav = branch(
-  isLogedIn,
-  renderComponent(RenderUser),
-  component => component,
-)
+const switchNav = branch(isLogedIn, renderComponent(RenderUser), component => component)
 
 export default switchNav(RenderFormBtn)

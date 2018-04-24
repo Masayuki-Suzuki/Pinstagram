@@ -18,8 +18,9 @@ const userData = handleActions(
   {
     INIT_USER_DATA: state => ({
       ...state,
+      id: '',
       userName: '',
-      email: '',
+      isFetch: false,
     }),
     REQUEST_USER_DATA: state => ({
       ...state,
@@ -28,8 +29,8 @@ const userData = handleActions(
     RECEIVE_USER_DATA_SUCCEEDED: (state, action) => ({
       ...state,
       isFetch: false,
+      id: action.payload.id,
       userName: action.payload.userName,
-      email: action.payload.email,
     }),
     RECEIVE_USER_DATA_FAILED: state => ({
       ...state,
@@ -39,7 +40,6 @@ const userData = handleActions(
   {
     id: '',
     userName: '',
-    email: '',
     isFetch: false,
   },
 )
@@ -65,6 +65,25 @@ const formControl = handleActions(
   { isSignUp: false, isLogIn: false },
 )
 
+const loginFormInput = handleActions(
+  {
+    INIT_LOGIN_FORM: state => ({
+      ...state,
+      email: '',
+      password: '',
+    }),
+    GET_LOGIN_EMAIL: (state, action) => ({
+      ...state,
+      email: action.payload.email,
+    }),
+    GET_LOGIN_PASS: (state, action) => ({
+      ...state,
+      password: action.payload.password,
+    }),
+  },
+  { email: '', password: '' },
+)
+
 const searchPost = handleActions(
   {
     SEARCH_POST_DATA: (state, action) => ({
@@ -78,6 +97,7 @@ const searchPost = handleActions(
 const reducer = combineReducers({
   postData,
   formControl,
+  loginFormInput,
   userData,
   searchPost,
 })

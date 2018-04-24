@@ -3,13 +3,7 @@ import Link from 'next/link'
 import Head from 'next/head'
 import RightNav from './rightNav'
 
-const Header = (props, {
-  userData,
-  searchPost,
-  openLoginForm,
-  openSignUpForm,
-  onChangeSearchBox,
-}) => {
+const Header = (props, { formActions }) => {
   const test = (e) => {
     e.preventDefault()
     return false
@@ -30,7 +24,7 @@ const Header = (props, {
       <div className="search">
         <form onSubmit={test}>
           <label className="searchLable" htmlFor="searchBox">
-            <input onChange={e => onChangeSearchBox(e.target.value)} type="text" id="searchBox" className="searchBox" placeholder="Search..." />
+            <input onChange={e => formActions.onChangeSearchBox(e.target.value)} type="text" id="searchBox" className="searchBox" placeholder="Search..." />
           </label>
         </form>
       </div>
