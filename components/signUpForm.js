@@ -3,7 +3,7 @@ import axios from 'axios'
 import FormOverlay from './formOverlay'
 import { SIGN_UP_URL } from '../store/defineVariables'
 
-const submitSignUpHandler = async (e, fetchUserActions, loginFormInput) => {
+const submitSignUpHandler = async (e, fetchUserActions, formActions) => {
   const email = e.target.firstChild.firstChild.value
   const userName = e.target.children[1].firstChild.value
   const pass = e.target.children[2].firstChild.value
@@ -13,10 +13,19 @@ const submitSignUpHandler = async (e, fetchUserActions, loginFormInput) => {
   e.target.children[1].firstChild.value = ''
   e.target.children[2].firstChild.value = ''
   const res = await axios.post(SIGN_UP_URL, { email, userName, pass }).catch((err) => {
+    const { existUserName, existEmail } = err.response.data
+    console.log(existUserName, existEmail)
+    if (existUserName) {
+      formActions.existUser(existUserName)
+    }
+    if (existEmail) {
+      formActions.existEmail(existEmail)
+    }
     fetchUserActions.failedFetchUserData(err)
     throw new Error(err)
   })
   console.log('Maybe posted.')
+  console.log(res.data)
 }
 
 const SingUpForm = props => (
@@ -25,7 +34,7 @@ const SingUpForm = props => (
     <h3 className="formOverlay__subheading">Sign up to share photos</h3>
     <p className="formOverlay__lead">Free, unlimited access to content</p>
     <p className="formOverlay__lead">Discover other accounts you&lsquo;ll love and new idea</p>
-    <form onSubmit={e => submitSignUpHandler(e, props.fetchUserActions, props.loginFormInput)} className="formOverlay__main">
+    <form onSubmit={e => submitSignUpHandler(e, props.fetchUserActions, props.formActions)} className="formOverlay__main">
       <label className="formOverlay__elm" htmlFor="formOverlay__email">
         <input id="formOverlay__email" className="formOverlay__input" type="email" placeholder="Email" />
       </label>

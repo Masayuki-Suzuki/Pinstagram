@@ -4,9 +4,12 @@ export const getInitData = createAction('GET_INIT_DATA')
 export const addLike = createAction('ADD_LIKE')
 
 // Form Actions
+export const initForm = createAction('INIT_FOMR')
 export const showSignUpForm = createAction('SHOW_SIGNUP_FORM')
 export const showLogInForm = createAction('SHOW_LOGIN_FORM')
 export const hiddenForm = createAction('HIDDEN_FORM')
+export const existingUserName = createAction('EXISTING_USER_NAME')
+export const existingEmail = createAction('EXISTING_EMAIL')
 export const requestLogin = createAction('REQUEST_LOGIN')
 
 // Sign up & Login Form Actions

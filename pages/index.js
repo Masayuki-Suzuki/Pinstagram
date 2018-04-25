@@ -2,18 +2,7 @@ import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
 import makeStore from '../store/storeCreater'
 
-import {
-  addLike,
-  getInitData,
-  getLoginEmail,
-  getLoginPass,
-  hiddenForm,
-  initLoginForm, receiveUserDataFailed, receiveUserDataSuceeded,
-  requestUserData,
-  searchPostData,
-  showLogInForm,
-  showSignUpForm
-} from '../actions/createActions'
+import { addLike, existingEmail, existingUserName, getInitData, getLoginEmail, getLoginPass, hiddenForm, initForm, initLoginForm, initUserData, receiveUserDataFailed, receiveUserDataSuceeded, requestUserData, searchPostData, showLogInForm, showSignUpForm } from '../actions/createActions'
 
 import Layout from '../components/layout'
 import Posts from '../components/posts'
@@ -48,6 +37,9 @@ const mapDispatchToProps = (dispatch) => {
     dispatch(addLike())
   }
   // For SignUp & Login Form
+  const initializeForm = () => {
+    dispatch(initForm())
+  }
   const openLoginForm = () => {
     dispatch(showLogInForm())
   }
@@ -58,6 +50,12 @@ const mapDispatchToProps = (dispatch) => {
     if (e.target.classList.contains('formOverlay') || e.target.classList[0].startsWith('closeBtn')) {
       dispatch(hiddenForm())
     }
+  }
+  const existUser = () => {
+    dispatch(existingUserName())
+  }
+  const existEmail = () => {
+    dispatch(existingEmail())
   }
   // Sign Up & Login handler
   // Maybe unnecessary
@@ -81,8 +79,8 @@ const mapDispatchToProps = (dispatch) => {
     console.error(err)
     dispatch(receiveUserDataFailed())
   }
-  const sucessedFetchUserData = ({id, userName}) => {
-    dispatch(receiveUserDataSuceeded({id, userName}))
+  const sucessedFetchUserData = ({ id, userName }) => {
+    dispatch(receiveUserDataSuceeded({ id, userName }))
   }
   // For search input box in Header
   const onChangeSearchBox = (text) => {
@@ -90,9 +88,12 @@ const mapDispatchToProps = (dispatch) => {
   }
   return {
     formActions: {
+      initializeForm,
       openLoginForm,
       openSignUpForm,
       closeForm,
+      existUser,
+      existEmail,
     },
     loginActions: {
       clearLoginForm,
@@ -103,7 +104,7 @@ const mapDispatchToProps = (dispatch) => {
       clearUserData,
       fetchUserData,
       failedFetchUserData,
-      sucessedFetchUserData
+      sucessedFetchUserData,
     },
     clickLikeBtn,
     onChangeSearchBox,

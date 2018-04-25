@@ -27,28 +27,69 @@ app.prepare().then(() => {
     }
   })
 
-  User.find({ userName: 'testUser' }, (err, testUser) => {
-    if (testUser.length === 0) {
-      console.log('test user did not exist; creating test user...')
-      testUser = new User({
-        email: 'test@test.com',
-        userName: 'testUser',
-        password: 'test',
-        fullName: 'Test User',
-        photo: null,
-      })
-      testUser.save()
-    } else {
-      console.log('test user has already existed; passed creating test user.')
-      console.log(testUser)
+  User.findOneAndRemove({ userName: 'bbbb' }, (err) => {
+    if (err) {
+      console.log(err)
+      throw new Error(err)
     }
   })
 
-  router.post('/', async(ctx) => {
-    const email = ctx.request.body.email
-    const userName = ctx.request.body.userName
-    const password = ctx.request.body.pass
+  // User.find({ userName: 'testUser' }, (err, testUser) => {
+  //   if (testUser.length === 0) {
+  //     console.log('test user did not exist; creating test user...')
+  //     testUser = new User({
+  //       email: 'test@test.com',
+  //       userName: 'testUser',
+  //       password: 'test',
+  //       fullName: 'Test User',
+  //       photo: null,
+  //     })
+  //     testUser.save()
+  //   } else {
+  //     console.log('test user has already existed; passed creating test user.')
+  //     console.log(testUser)
+  //   }
+  // })
 
+  router.post('/register', async (ctx, next) => {
+    const body = await ctx.request.body
+    const email = body.email
+    const userName = body.userName
+    const password = body.pass
+    let existUserName = false
+    let existEmail = false
+    await User.find({ $or: [{ userName }, { email }] }, async (err, userData) => {
+      userData.forEach((data) => {
+        if (data.userName === userName) {
+          existUserName = true
+        }
+        if (data.email === email) {
+          existEmail = true
+        }
+      })
+      if (existUserName || existEmail) {
+        ctx.response.status = 500
+        ctx.response.body = { existUserName, existEmail }
+        return next()
+      }
+      if (!existUserName || !existEmail) {
+        const newUser = new User({
+          email,
+          userName,
+          password,
+          fullName: null,
+          photo: null,
+        })
+        const user = await newUser.save()
+        ctx.response.status = 200
+        ctx.response.body = { userName: user.userName, id: user._id }
+        console.log('in find')
+        console.log(ctx.response)
+        return next()
+      }
+    })
+    console.log('out find')
+    console.log(ctx.response)
   })
 
   router.get('*', async (ctx) => {
@@ -60,5 +101,4 @@ app.prepare().then(() => {
     if (err) throw err
     console.log(`Koa > Ready on http://localhost:${port}`)
   })
-
 })

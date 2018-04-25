@@ -46,6 +46,13 @@ const userData = handleActions(
 
 const formControl = handleActions(
   {
+    INIT_FOMR: state => ({
+      ...state,
+      isSignUp: false,
+      isLogIn: false,
+      existingUser: false,
+      existingEmail: false,
+    }),
     SHOW_SIGNUP_FORM: state => ({
       ...state,
       isSignUp: true,
@@ -60,9 +67,24 @@ const formControl = handleActions(
       ...state,
       isSignUp: false,
       isLogIn: false,
+      existingUser: false,
+      existingEmail: false,
+    }),
+    EXISTING_USER_NAME: state => ({
+      ...state,
+      existingUser: true,
+    }),
+    EXISTING_EMAIL: state => ({
+      ...state,
+      existingEmail: true,
     }),
   },
-  { isSignUp: false, isLogIn: false },
+  {
+    isSignUp: false,
+    isLogIn: false,
+    existingUser: false,
+    existingEmail: false,
+  },
 )
 
 const loginFormInput = handleActions(
