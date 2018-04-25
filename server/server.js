@@ -53,43 +53,44 @@ app.prepare().then(() => {
 
   router.post('/register', async (ctx, next) => {
     const body = await ctx.request.body
-    const email = body.email
-    const userName = body.userName
+    const { userName, email } = body
     const password = body.pass
+    /* eslint-disable prefer-const */
     let existUserName = false
+    /* eslint-disable prefer-const */
     let existEmail = false
-    await User.find({ $or: [{ userName }, { email }] }, async (err, userData) => {
-      userData.forEach((data) => {
-        if (data.userName === userName) {
-          existUserName = true
-        }
-        if (data.email === email) {
-          existEmail = true
-        }
-      })
-      if (existUserName || existEmail) {
-        ctx.response.status = 500
-        ctx.response.body = { existUserName, existEmail }
-        return next()
+    const foundData = await User.find({ $or: [{ userName }, { email }] }, async (err, userData) => {
+      if (err) {
+        throw new Error(err)
       }
-      if (!existUserName || !existEmail) {
-        const newUser = new User({
-          email,
-          userName,
-          password,
-          fullName: null,
-          photo: null,
-        })
-        const user = await newUser.save()
-        ctx.response.status = 200
-        ctx.response.body = { userName: user.userName, id: user._id }
-        console.log('in find')
-        console.log(ctx.response)
-        return next()
+      return userData
+    })
+    foundData.forEach((data) => {
+      if (data.userName === userName) {
+        existUserName = true
+      }
+      if (data.email === email) {
+        existEmail = true
       }
     })
-    console.log('out find')
-    console.log(ctx.response)
+    if (existUserName || existEmail) {
+      ctx.response.status = 500
+      ctx.response.body = { existUserName, existEmail }
+      return next()
+    }
+    if (!existUserName || !existEmail) {
+      const newUser = new User({
+        email,
+        userName,
+        password,
+        fullName: null,
+        photo: null,
+      })
+      const user = await newUser.save()
+      ctx.response.status = 200
+      ctx.response.body = { userName: user.userName, id: user._id }
+      return next()
+    }
   })
 
   router.get('*', async (ctx) => {
