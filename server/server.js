@@ -1,3 +1,4 @@
+const config = require('config')
 const Koa = require('koa')
 const Static = require('koa-static')
 const Router = require('koa-router')
@@ -10,9 +11,10 @@ const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_DEV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
-const DB_URL = 'mongodb://localhost/pinstagram'
+const DB_URL = config.get('DB.url')
 
 app.prepare().then(() => {
+  console.log(__dirname)
   const server = new Koa()
   const router = new Router()
   server.use(bodyParser())
@@ -34,22 +36,22 @@ app.prepare().then(() => {
     }
   })
 
-  // User.find({ userName: 'testUser' }, (err, testUser) => {
-  //   if (testUser.length === 0) {
-  //     console.log('test user did not exist; creating test user...')
-  //     testUser = new User({
-  //       email: 'test@test.com',
-  //       userName: 'testUser',
-  //       password: 'test',
-  //       fullName: 'Test User',
-  //       photo: null,
-  //     })
-  //     testUser.save()
-  //   } else {
-  //     console.log('test user has already existed; passed creating test user.')
-  //     console.log(testUser)
-  //   }
-  // })
+  User.find({ userName: 'testUser' }, (err, testUser) => {
+    if (testUser.length === 0) {
+      console.log('test user did not exist; creating test user...')
+      testUser = new User({
+        email: 'test@test.com',
+        userName: 'testUser',
+        password: 'test',
+        fullName: 'Test User',
+        photo: null,
+      })
+      testUser.save()
+    } else {
+      console.log('test user has already existed; passed creating test user.')
+      console.log(testUser)
+    }
+  })
 
   router.post('/register', async (ctx, next) => {
     const body = await ctx.request.body
@@ -74,7 +76,7 @@ app.prepare().then(() => {
       }
     })
     if (existUserName || existEmail) {
-      ctx.response.status = 500
+      ctx.response.status = 400
       ctx.response.body = { existUserName, existEmail }
       return next()
     }
