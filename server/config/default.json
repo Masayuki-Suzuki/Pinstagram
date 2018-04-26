@@ -1,5 +1,8 @@
 {
   "DB": {
     "url": "mongodb://localhost/pinstagram"
+  },
+  "path": {
+    "public": "./public"
   }
 }

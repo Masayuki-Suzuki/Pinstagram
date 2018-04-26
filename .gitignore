@@ -2,6 +2,6 @@ node_modules
 .idea
 .next
 elements
-
+.env
 
 

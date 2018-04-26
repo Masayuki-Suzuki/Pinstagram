@@ -1,3 +1,4 @@
+require('dotenv').config()
 const config = require('config')
 const Koa = require('koa')
 const Static = require('koa-static')
@@ -11,14 +12,15 @@ const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_DEV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
+
 const DB_URL = config.get('DB.url')
+const PUBLIC_DIR = config.get('path.public')
 
 app.prepare().then(() => {
-  console.log(__dirname)
   const server = new Koa()
   const router = new Router()
   server.use(bodyParser())
-  server.use(Static('./public'))
+  server.use(Static(PUBLIC_DIR))
   server.use(router.routes())
 
   mongoose.connect(DB_URL, (err) => {
