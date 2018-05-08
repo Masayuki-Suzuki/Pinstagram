@@ -6,6 +6,7 @@ const Router = require('koa-router')
 const bodyParser = require('koa-bodyparser')
 const next = require('next')
 const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
 const User = require('./models/user')
 
 const port = parseInt(process.env.PORT, 10) || 3000
@@ -15,6 +16,7 @@ const handle = app.getRequestHandler()
 
 const DB_URL = config.get('DB.url')
 const PUBLIC_DIR = config.get('path.public')
+// const SECRET_KEY = config.get('secretKey')
 
 app.prepare().then(() => {
   const server = new Koa()
@@ -91,8 +93,15 @@ app.prepare().then(() => {
         photo: null,
       })
       const user = await newUser.save()
+      const jsonWebToken = jwt.sign(
+        {
+          id: userName,
+          email,
+        },
+        SECRET_KEY,
+      )
       ctx.response.status = 200
-      ctx.response.body = { userName: user.userName, id: user._id }
+      ctx.response.body = { userName: user.userName, id: user._id, jsonWebToken }
       return next()
     }
   })

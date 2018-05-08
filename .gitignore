@@ -3,5 +3,5 @@ node_modules
 .next
 elements
 .env
-
+server/config/default.json
 
