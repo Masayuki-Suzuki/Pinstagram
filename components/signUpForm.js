@@ -9,10 +9,9 @@ const submitSignUpHandler = async (e, fetchUserActions, formActions) => {
   const pass = e.target.children[2].firstChild.value
   e.preventDefault()
   e.stopPropagation()
-  e.target.firstChild.firstChild.value = ''
-  e.target.children[1].firstChild.value = ''
-  e.target.children[2].firstChild.value = ''
+  fetchUserActions.fetchUserData()
   const res = await axios.post(SIGN_UP_URL, { email, userName, pass }).catch((err) => {
+    // If server responded error code,
     const { existUserName, existEmail } = err.response.data
     console.log(existUserName, existEmail)
     if (existUserName) {
@@ -24,8 +23,13 @@ const submitSignUpHandler = async (e, fetchUserActions, formActions) => {
     fetchUserActions.failedFetchUserData(err)
     throw new Error(err)
   })
-  console.log('Maybe posted.')
-  console.log(res.data)
+  // If sign up is validated.
+  const { jsonWebToken: jwt, userName: loginUser, id } = res.data
+  // save jwt to session storage
+  sessionStorage.setItem('jwt', jwt)
+  fetchUserActions.sucessedFetchUserData({ id, userName: loginUser })
+  formActions.closeForm(e)
+  // Clear form
 }
 
 const SingUpForm = props => (

@@ -1,3 +1,4 @@
+// config
 require('dotenv').config()
 const config = require('config')
 const Koa = require('koa')
@@ -7,6 +8,8 @@ const bodyParser = require('koa-bodyparser')
 const next = require('next')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
+
 const User = require('./models/user')
 
 const port = parseInt(process.env.PORT, 10) || 3000
@@ -16,7 +19,8 @@ const handle = app.getRequestHandler()
 
 const DB_URL = config.get('DB.url')
 const PUBLIC_DIR = config.get('path.public')
-// const SECRET_KEY = config.get('secretKey')
+const SECRET_KEY = config.get('secretKey')
+const SALT_ROUNDS = config.get('saltRounds')
 
 app.prepare().then(() => {
   const server = new Koa()
@@ -85,17 +89,18 @@ app.prepare().then(() => {
       return next()
     }
     if (!existUserName || !existEmail) {
+      const hash = bcrypt.hashSync(password, SALT_ROUNDS)
       const newUser = new User({
         email,
         userName,
-        password,
+        password: hash,
         fullName: null,
         photo: null,
       })
       const user = await newUser.save()
       const jsonWebToken = jwt.sign(
         {
-          id: userName,
+          userName,
           email,
         },
         SECRET_KEY,

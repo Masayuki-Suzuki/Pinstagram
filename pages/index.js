@@ -47,6 +47,7 @@ const mapDispatchToProps = (dispatch) => {
     dispatch(showSignUpForm())
   }
   const closeForm = (e) => {
+    // TODO: change target class validation to another place.
     if (e.target.classList.contains('formOverlay') || e.target.classList[0].startsWith('closeBtn')) {
       dispatch(hiddenForm())
     }
