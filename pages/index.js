@@ -2,12 +2,32 @@ import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
 import makeStore from '../store/storeCreater'
 
-import { addLike, existingEmail, existingUserName, getInitData, getLoginEmail, getLoginPass, hiddenForm, initForm, initLoginForm, initUserData, receiveUserDataFailed, receiveUserDataSuceeded, requestUserData, searchPostData, showLogInForm, showSignUpForm } from '../actions/createActions'
+import {
+  addLike,
+  existingEmail,
+  existingUserName,
+  nowFetchingData,
+  getInitData,
+  getLoginEmail,
+  getLoginPass,
+  hiddenForm,
+  initForm,
+  initLoginForm,
+  initUserData,
+  noFetchingData,
+  receiveUserDataSuceeded,
+  searchPostData,
+  showLogInForm,
+  showSignUpForm,
+  initFormData,
+  saveFormData,
+} from '../actions/createActions'
 
 import Layout from '../components/layout'
 import Posts from '../components/posts'
 import RenderLoginForm from '../components/renderLoginForm'
 import RenderSignUpForm from '../components/renderSignUpForm'
+import Loading from '../components/loading'
 
 /* eslint-disable react/prefer-stateless-function */
 class Page extends Component {
@@ -25,6 +45,7 @@ class Page extends Component {
         <Posts posts={this.props.postData} clickLikeBtn={this.props.clickLikeBtn} />
         <RenderLoginForm {...this.props} />
         <RenderSignUpForm {...this.props} />
+        <Loading {...this.props} />
       </Layout>
     )
   }
@@ -46,11 +67,8 @@ const mapDispatchToProps = (dispatch) => {
   const openSignUpForm = () => {
     dispatch(showSignUpForm())
   }
-  const closeForm = (e) => {
-    // TODO: change target class validation to another place.
-    if (e.target.classList.contains('formOverlay') || e.target.classList[0].startsWith('closeBtn')) {
-      dispatch(hiddenForm())
-    }
+  const closeForm = () => {
+    dispatch(hiddenForm())
   }
   const existUser = () => {
     dispatch(existingUserName())
@@ -73,19 +91,26 @@ const mapDispatchToProps = (dispatch) => {
   const clearUserData = () => {
     dispatch(initUserData())
   }
-  const fetchUserData = () => {
-    dispatch(requestUserData())
+  const onFetching = () => {
+    dispatch(nowFetchingData())
   }
-  const failedFetchUserData = (err) => {
-    console.error(err)
-    dispatch(receiveUserDataFailed())
+  const endFetching = () => {
+    dispatch(noFetchingData())
   }
-  const sucessedFetchUserData = ({ id, userName }) => {
-    dispatch(receiveUserDataSuceeded({ id, userName }))
+  const suceededFetchUserData = (id, userName) => {
+    dispatch(receiveUserDataSuceeded(id, userName))
   }
   // For search input box in Header
   const onChangeSearchBox = (text) => {
     dispatch(searchPostData(text))
+  }
+
+  // Form input data control
+  const clearForm = () => {
+    dispatch(initFormData())
+  }
+  const saveForm = (email, user) => {
+    dispatch(saveFormData(email, user))
   }
   return {
     formActions: {
@@ -103,9 +128,15 @@ const mapDispatchToProps = (dispatch) => {
     },
     fetchUserActions: {
       clearUserData,
-      fetchUserData,
-      failedFetchUserData,
-      sucessedFetchUserData,
+      suceededFetchUserData,
+    },
+    fetchControl: {
+      onFetching,
+      endFetching,
+    },
+    formData: {
+      clearForm,
+      saveForm,
     },
     clickLikeBtn,
     onChangeSearchBox,

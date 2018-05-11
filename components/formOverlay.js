@@ -1,7 +1,14 @@
 import React from 'react'
 
-export default ({ children, formActions }) => (
-  <div className="formOverlay loginForm" onClick={e => formActions.closeForm(e)} onKeyPress={e => formActions.closeForm(e)} role="button" tabIndex="0" aria-pressed="false">
+const validElm = (e, fn, clearData) => {
+  if (e.target.classList.contains('formOverlay') || e.target.classList[0].startsWith('closeBtn')) {
+    fn()
+    clearData()
+  }
+}
+
+export default ({ children, formActions, formData }) => (
+  <div className="formOverlay loginForm" onClick={e => validElm(e, formActions.closeForm, formData.clearForm)} role="button" tabIndex="0" aria-pressed="false">
     <button className="closeBtn">
       <span className="closeBtn__top" />
       <span className="closeBtn__btm" />
