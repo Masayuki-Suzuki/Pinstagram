@@ -21,6 +21,8 @@ import {
   showSignUpForm,
   initFormData,
   saveFormData,
+  saveInputEmail,
+  saveInputUser,
 } from '../actions/createActions'
 
 import Layout from '../components/layout'
@@ -109,6 +111,12 @@ const mapDispatchToProps = (dispatch) => {
   const clearForm = () => {
     dispatch(initFormData())
   }
+  const saveEmail = (email) => {
+    dispatch(saveInputEmail(email))
+  }
+  const saveUser = (user) => {
+    dispatch(saveInputUser(user))
+  }
   const saveForm = (email, user) => {
     dispatch(saveFormData(email, user))
   }
@@ -136,6 +144,8 @@ const mapDispatchToProps = (dispatch) => {
     },
     formData: {
       clearForm,
+      saveEmail,
+      saveUser,
       saveForm,
     },
     clickLikeBtn,

@@ -7,6 +7,14 @@ const formInputData = handleActions(
       email: '',
       userName: '',
     }),
+    SAVE_INPUT_EMAIL: (state, action) => ({
+      ...state,
+      email: action.payload.email
+    }),
+    SAVE_INPUT_USER: (state, action) => ({
+      ...state,
+      userName: action.payload.userName
+    }),
     SAVE_FORM_DATA: (state, action) => ({
       ...state,
       email: action.payload.email,

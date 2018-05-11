@@ -20,7 +20,7 @@ const handle = app.getRequestHandler()
 const DB_URL = config.get('DB.url')
 const PUBLIC_DIR = config.get('path.public')
 const SECRET_KEY = config.get('secretKey')
-const SALT_ROUNDS = config.get('saltRounds')
+const SALT_ROUNDS = config.get('saltRounds') || 10
 
 app.prepare().then(() => {
   const server = new Koa()
@@ -63,8 +63,8 @@ app.prepare().then(() => {
 
   router.post('/register', async (ctx, next) => {
     const body = await ctx.request.body
-    const { userName, email } = body
-    const password = body.pass
+    const { userName, email, pass: password } = body
+    console.log(ctx.request.body)
     /* eslint-disable prefer-const */
     let existUserName = false
     /* eslint-disable prefer-const */
@@ -89,7 +89,7 @@ app.prepare().then(() => {
       return next()
     }
     if (!existUserName || !existEmail) {
-      const hash = bcrypt.hashSync(password, SALT_ROUNDS)
+      const hash = await bcrypt.hash(password, SALT_ROUNDS)
       const newUser = new User({
         email,
         userName,
