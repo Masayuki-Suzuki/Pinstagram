@@ -94,7 +94,6 @@ const mapDispatchToProps = (dispatch) => {
     dispatch(initUserData())
   }
   const onFetching = () => {
-    console.log('here')
     dispatch(nowFetchingData())
   }
   const endFetching = () => {

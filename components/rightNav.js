@@ -1,17 +1,23 @@
 import React from 'react'
 import { branch, renderComponent } from 'recompose'
 
-const logOutHandler = async (fetchUserActions, fetchControl) => {
-  fetchControl.onFetching()
-  await setTimeout(
-    ((fetchUserActions) => {
+const clearUserData = fetchUserActions =>
+  new Promise((fetchUserActions) => {
+    setTimeout((fetchUserActions) => {
       console.log(fetchUserActions)
       sessionStorage.removeItem('jwt')
       fetchUserActions.clearUserData()
-    }).bind(fetchUserActions, fetchUserActions),
-    1000,
-  )
-  fetchControl.endFetching()
+    }, 1000)
+  })
+
+const logOutHandler = async (fetchUserActions, fetchControl) => {
+  fetchControl.onFetching()
+  setTimeout(() => {
+    console.log(fetchUserActions)
+    sessionStorage.removeItem('jwt')
+    fetchUserActions.clearUserData()
+    fetchControl.endFetching()
+  }, 1000)
 }
 
 const RenderFormBtn = ({ formActions }) => (
@@ -36,8 +42,8 @@ const RenderUser = ({ userData, fetchUserActions, fetchControl }) => (
   </ul>
 )
 
-const isLoggedIn = () => {
-  if (sessionStorage.jwt) {
+const isLoggedIn = ({ userData }) => {
+  if (userData.id) {
     return true
   }
   return false
