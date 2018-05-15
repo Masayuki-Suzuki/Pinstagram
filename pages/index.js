@@ -94,12 +94,13 @@ const mapDispatchToProps = (dispatch) => {
     dispatch(initUserData())
   }
   const onFetching = () => {
+    console.log('here')
     dispatch(nowFetchingData())
   }
   const endFetching = () => {
     dispatch(noFetchingData())
   }
-  const suceededFetchUserData = (id, userName) => {
+  const succeededFetchUserData = (id, userName) => {
     dispatch(receiveUserDataSuceeded(id, userName))
   }
   // For search input box in Header
@@ -136,7 +137,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     fetchUserActions: {
       clearUserData,
-      suceededFetchUserData,
+      succeededFetchUserData,
     },
     fetchControl: {
       onFetching,

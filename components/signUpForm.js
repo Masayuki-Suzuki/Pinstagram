@@ -19,7 +19,6 @@ const submitSignUpHandler = async (e, {
   // show loading view
   fetchControl.onFetching()
   // post new user data
-  console.log(email, userName, pass)
   const res = await axios.post(SIGN_UP_URL, { email, userName, pass }).catch((err) => {
     // If server responded error code,
     const { existUserName, existEmail } = err.response.data
@@ -43,7 +42,7 @@ const submitSignUpHandler = async (e, {
   const { jsonWebToken: jwt, userName: loginUser, id } = res.data
   // save jwt to session storage
   sessionStorage.setItem('jwt', jwt)
-  fetchUserActions.suceededFetchUserData(id, loginUser)
+  fetchUserActions.succeededFetchUserData(id, loginUser)
   // Clear form
   formData.clearForm()
   // hide loading view

@@ -64,17 +64,18 @@ app.prepare().then(() => {
   router.post('/register', async (ctx, next) => {
     const body = await ctx.request.body
     const { userName, email, pass: password } = body
-    console.log(ctx.request.body)
     /* eslint-disable prefer-const */
     let existUserName = false
     /* eslint-disable prefer-const */
     let existEmail = false
+    // get user name and email address on db.
     const foundData = await User.find({ $or: [{ userName }, { email }] }, async (err, userData) => {
       if (err) {
         throw new Error(err)
       }
       return userData
     })
+    // Valid data.
     foundData.forEach((data) => {
       if (data.userName === userName) {
         existUserName = true
@@ -83,13 +84,16 @@ app.prepare().then(() => {
         existEmail = true
       }
     })
+    // if username or email address already exist return 400 state and existing flag.
     if (existUserName || existEmail) {
       ctx.response.status = 400
       ctx.response.body = { existUserName, existEmail }
       return next()
     }
     if (!existUserName || !existEmail) {
+      // encrypt password for saving to db.
       const hash = await bcrypt.hash(password, SALT_ROUNDS)
+      // Save user data for db.
       const newUser = new User({
         email,
         userName,
@@ -98,6 +102,7 @@ app.prepare().then(() => {
         photo: null,
       })
       const user = await newUser.save()
+      // create jwt
       const jsonWebToken = jwt.sign(
         {
           userName,
@@ -105,6 +110,7 @@ app.prepare().then(() => {
         },
         SECRET_KEY,
       )
+      // Respond to client side with user data and jwt
       ctx.response.status = 200
       ctx.response.body = { userName: user.userName, id: user._id, jsonWebToken }
       return next()
@@ -118,6 +124,6 @@ app.prepare().then(() => {
 
   server.listen(port, (err) => {
     if (err) throw err
-    console.log(`Koa > Ready on http://localhost:${port}`)
+    console.log('Koa > Ready on %o', `http://localhost:${port}`)
   })
 })
