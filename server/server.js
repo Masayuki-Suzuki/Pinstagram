@@ -37,12 +37,12 @@ app.prepare().then(() => {
     }
   })
 
-  User.findOneAndRemove({ userName: 'bbbb' }, (err) => {
-    if (err) {
-      console.log(err)
-      throw new Error(err)
-    }
-  })
+  // User.findOneAndRemove({ userName: 'bbbb' }, (err) => {
+  //   if (err) {
+  //     console.log(err)
+  //     throw new Error(err)
+  //   }
+  // })
 
   User.find({ userName: 'testUser' }, (err, testUser) => {
     if (testUser.length === 0) {
@@ -114,6 +114,38 @@ app.prepare().then(() => {
       ctx.response.status = 200
       ctx.response.body = { userName: user.userName, id: user._id, jsonWebToken }
       return next()
+    }
+  })
+
+  router.post('/login', async (ctx, next) => {
+    const { email, pass: password, jwt: clientJWT } = await ctx.request.body
+    if (clientJWT) {
+      // If the client sent jwt, the server validates it and send user data to the client.
+      // some code after.
+    } else {
+      // If "jwd" was not sent by the client, the server determines this is the first login.
+      // Get user data from db with an email address.
+      const foundData = await User.findOne({ email }, (err, userData) => {
+        if (err) {
+          ctx.response.status = 400
+          ctx.response.body = err
+          return next()
+        }
+        return userData
+      })
+      // Validates password with hash
+      if (bcrypt.compareSync(password, foundData.password)) {
+        const jsonWebToken = jwt.sign(
+          {
+            userName: foundData.userName,
+            email: foundData.email,
+          },
+          SECRET_KEY,
+        )
+        ctx.response.status = 200
+        ctx.response.body = { id: foundData._id, userName: foundData.userName, jsonWebToken }
+        return next()
+      }
     }
   })
 

@@ -1,23 +1,13 @@
 import React from 'react'
 import { branch, renderComponent } from 'recompose'
 
-const clearUserData = fetchUserActions =>
-  new Promise((fetchUserActions) => {
-    setTimeout((fetchUserActions) => {
-      console.log(fetchUserActions)
-      sessionStorage.removeItem('jwt')
-      fetchUserActions.clearUserData()
-    }, 1000)
-  })
-
 const logOutHandler = async (fetchUserActions, fetchControl) => {
   fetchControl.onFetching()
-  setTimeout(() => {
-    console.log(fetchUserActions)
-    sessionStorage.removeItem('jwt')
-    fetchUserActions.clearUserData()
-    fetchControl.endFetching()
-  }, 1000)
+  // Delete user data and JSON Web Token after display the loading view 1 sec because deleting data is so fast.
+  await new Promise(resolve => setTimeout(resolve, 1000))
+  sessionStorage.removeItem('jwt')
+  fetchUserActions.clearUserData()
+  fetchControl.endFetching()
 }
 
 const RenderFormBtn = ({ formActions }) => (
