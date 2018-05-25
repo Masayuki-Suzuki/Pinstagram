@@ -29,6 +29,7 @@
     "window": true,
     "document": true,
     "location": true,
-    "requestAnimationFrame": true
+    "requestAnimationFrame": true,
+    "sessionStorage": true
   }
 }

@@ -11,8 +11,7 @@ const submitSignUpHandler = async (e, {
   e.stopPropagation()
   // get and save data from sing up form.
   const passTag = [...e.target.children].slice(-2, -1)[0]
-  const email = formInputData.email
-  const userName = formInputData.userName
+  const { email, userName } = formInputData
   const pass = passTag.firstChild.value
   // hide sign up form
   formActions.closeForm()
