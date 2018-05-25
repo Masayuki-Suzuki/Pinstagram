@@ -23,6 +23,7 @@ import {
   saveFormData,
   saveInputEmail,
   saveInputUser,
+  loginError,
 } from '../actions/createActions'
 
 import Layout from '../components/layout'
@@ -78,6 +79,9 @@ const mapDispatchToProps = (dispatch) => {
   const existEmail = () => {
     dispatch(existingEmail())
   }
+  const failedLogin = () => {
+    dispatch(loginError())
+  }
   // Sign Up & Login handler
   // Maybe unnecessary
   const clearLoginForm = () => {
@@ -128,6 +132,7 @@ const mapDispatchToProps = (dispatch) => {
       closeForm,
       existUser,
       existEmail,
+      failedLogin,
     },
     loginActions: {
       clearLoginForm,

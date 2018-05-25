@@ -133,8 +133,9 @@ app.prepare().then(() => {
         }
         return userData
       })
-      // Validates password with hash
-      if (bcrypt.compareSync(password, foundData.password)) {
+      // If found user data on db, validates password with hash
+      if (foundData && bcrypt.compareSync(password, foundData.password)) {
+        // create json web token after validate password and correct it.
         const jsonWebToken = jwt.sign(
           {
             userName: foundData.userName,
@@ -142,10 +143,19 @@ app.prepare().then(() => {
           },
           SECRET_KEY,
         )
+        // respond user data and json web token for client
         ctx.response.status = 200
-        ctx.response.body = { id: foundData._id, userName: foundData.userName, jsonWebToken }
+        ctx.response.body = {
+          id: foundData._id,
+          userName: foundData.userName,
+          jsonWebToken,
+          error: false,
+        }
         return next()
       }
+      // If email address isn't on the db or password was incorrect, respond error state and flag.
+      ctx.response.status = 400
+      ctx.response.body = { error: true }
     }
   })
 

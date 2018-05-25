@@ -10,13 +10,14 @@ export const showLogInForm = createAction('SHOW_LOGIN_FORM')
 export const hiddenForm = createAction('HIDDEN_FORM')
 export const existingUserName = createAction('EXISTING_USER_NAME')
 export const existingEmail = createAction('EXISTING_EMAIL')
+export const loginError = createAction('LOGIN_ERROR')
 export const requestLogin = createAction('REQUEST_LOGIN')
 
 // Form input data
 export const initFormData = createAction('INIT_FORM_DATA')
 export const saveInputEmail = createAction('SAVE_INPUT_EMAIL', (email = '') => ({ email }))
 export const saveInputUser = createAction('SAVE_INPUT_USER', (userName = '') => ({ userName }))
-export const saveFormData = createAction('SAVE_FORM_DATA', (email = '', userName = '') => ({ email, userName}))
+export const saveFormData = createAction('SAVE_FORM_DATA', (email = '', userName = '') => ({ email, userName }))
 
 // Sign up & Login Form Actions
 export const initLoginForm = createAction('INIT_LOGIN_FORM')

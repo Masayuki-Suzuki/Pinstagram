@@ -1,4 +1,4 @@
-import {handleActions} from "redux-actions";
+import { handleActions } from 'redux-actions'
 
 const formControl = handleActions(
   {
@@ -8,6 +8,7 @@ const formControl = handleActions(
       isLogIn: false,
       existingUser: false,
       existingEmail: false,
+      loginError: false,
     }),
     SHOW_SIGNUP_FORM: state => ({
       ...state,
@@ -25,6 +26,7 @@ const formControl = handleActions(
       isLogIn: false,
       existingUser: false,
       existingEmail: false,
+      loginError: false,
     }),
     EXISTING_USER_NAME: state => ({
       ...state,
@@ -34,12 +36,17 @@ const formControl = handleActions(
       ...state,
       existingEmail: true,
     }),
+    LOGIN_ERROR: state => ({
+      ...state,
+      loginError: true,
+    }),
   },
   {
     isSignUp: false,
     isLogIn: false,
     existingUser: false,
     existingEmail: false,
+    loginError: false,
   },
 )
 
