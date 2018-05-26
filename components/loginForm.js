@@ -1,46 +1,7 @@
 import React from 'react'
-import axios from 'axios'
 import FormOverlay from './formOverlay'
 import { emailInputHandler } from '../handlers/loginFormHandlers'
-import { LOGIN_URL } from '../store/defineVariables'
 import submitHandler from './submitHandler'
-
-// const submitLogInHandler = async (e, {
-//   fetchUserActions, formActions, fetchControl, formData, formInputData,
-// }) => {
-//   // stop default form action
-//   e.preventDefault()
-//   e.stopPropagation()
-//   // get and save data from sing up form.
-//   const passTag = [...e.target.children].slice(-2, -1)[0]
-//   const { email } = formInputData
-//   const pass = passTag.firstChild.value
-//   const jsonWebToken = sessionStorage.getItem('jwt') || null
-//   console.log(jsonWebToken)
-//   // hide sign up form
-//   formActions.closeForm()
-//   // show loading view
-//   fetchControl.onFetching()
-//   const res = await axios.post(LOGIN_URL, { email, pass, jsonWebToken }).catch((err) => {
-//     formActions.failedLogin()
-//     // hide loading view
-//     fetchControl.endFetching()
-//     // show sing up form
-//     formActions.openLoginForm()
-//     // dump error message for console
-//     console.error(err)
-//     throw new Error(err)
-//   })
-//   // If logged in.
-//   const { jsonWebToken: jwt, userName: loginUser, id } = res.data
-//   // save jwt to session storage
-//   sessionStorage.setItem('jwt', jwt)
-//   fetchUserActions.succeededFetchUserData(id, loginUser)
-//   // Clear form
-//   formData.clearForm()
-//   // hide loading view
-//   fetchControl.endFetching()
-// }
 
 const LoginError = ({ formControl }) =>
   (formControl.loginError ? (

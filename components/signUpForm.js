@@ -1,54 +1,7 @@
 import React from 'react'
-import axios from 'axios'
 import FormOverlay from './formOverlay'
-import { SIGN_UP_URL } from '../store/defineVariables'
 import { emailInputHandler, userNameInputHandler } from '../handlers/loginFormHandlers'
 import submitHandler from './submitHandler'
-
-// const submitSignUpHandler = async (e, {
-//   fetchUserActions, formActions, fetchControl, formData, formInputData,
-// }) => {
-//   // stop default form action
-//   e.preventDefault()
-//   e.stopPropagation()
-//   // get and save data from sing up form.
-//   const passTag = [...e.target.children].slice(-2, -1)[0]
-//   const { email, userName } = formInputData
-//   const pass = passTag.firstChild.value
-//   // hide sign up form
-//   formActions.closeForm()
-//   // show loading view
-//   fetchControl.onFetching()
-//   // post new user data
-//   const res = await axios.post(SIGN_UP_URL, { email, userName, pass }).catch((err) => {
-//     // If server responded error code,
-//     const { existUserName, existEmail } = err.response.data
-//     if (existUserName) {
-//       // show error message for user name
-//       formActions.existUser(existUserName)
-//     }
-//     if (existEmail) {
-//       // show error message for email address
-//       formActions.existEmail(existEmail)
-//     }
-//     // hide loading view
-//     fetchControl.endFetching()
-//     // show sing up form
-//     formActions.openSignUpForm()
-//     // dump error message for console
-//     console.error(err)
-//     throw new Error(err)
-//   })
-//   // If signed up.
-//   const { jsonWebToken: jwt, userName: loginUser, id } = res.data
-//   // save jwt to session storage
-//   sessionStorage.setItem('jwt', jwt)
-//   fetchUserActions.succeededFetchUserData(id, loginUser)
-//   // Clear form
-//   formData.clearForm()
-//   // hide loading view
-//   fetchControl.endFetching()
-// }
 
 const EmailError = ({ formControl }) => (formControl.existingEmail ? <p className="errorMassage">Your email address is already existing.</p> : null)
 const UserError = ({ formControl }) => (formControl.existingUser ? <p className="errorMassage">Your user name is already existing.</p> : null)

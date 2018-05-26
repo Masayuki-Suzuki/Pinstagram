@@ -1,5 +1,5 @@
-import axios from "axios/index";
-import {LOGIN_URL, SIGN_UP_URL} from "../store/defineVariables";
+import axios from 'axios/index'
+import { LOGIN_URL, SIGN_UP_URL } from '../store/defineVariables'
 
 export default async (e, {
   fetchUserActions, formActions, fetchControl, formData, formInputData,
@@ -12,12 +12,12 @@ export default async (e, {
   const { email, userName } = formInputData
   const pass = passTag.firstChild.value
   const jsonWebToken = sessionStorage.getItem('jwt') || null
-  let res;
+  let res
   // hide sign up form
   formActions.closeForm()
   // show loading view
   fetchControl.onFetching()
-  if(isSignUp) {
+  if (isSignUp) {
     res = await axios.post(SIGN_UP_URL, { email, userName, pass }).catch((err) => {
       // If server responded error code,
       const { existUserName, existEmail } = err.response.data
@@ -39,6 +39,7 @@ export default async (e, {
     })
   } else {
     res = await axios.post(LOGIN_URL, { email, pass, jsonWebToken }).catch((err) => {
+      // show error message.
       formActions.failedLogin()
       // hide loading view
       fetchControl.endFetching()
@@ -52,9 +53,12 @@ export default async (e, {
   const { jsonWebToken: jwt, userName: loginUser, id } = res.data
   // save jwt to session storage
   sessionStorage.setItem('jwt', jwt)
+  // save id and username to state
   fetchUserActions.succeededFetchUserData(id, loginUser)
   // Clear form
   formData.clearForm()
+  // delay at least 1 sec.
+  await new Promise(resolve => setTimeout(resolve, 1000))
   // hide loading view
   fetchControl.endFetching()
 }
