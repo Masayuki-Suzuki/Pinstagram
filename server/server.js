@@ -105,8 +105,8 @@ app.prepare().then(() => {
       // create jwt
       const jsonWebToken = jwt.sign(
         {
-          userName,
-          email,
+          id: user._id,
+          mail: user.email,
         },
         SECRET_KEY,
       )
@@ -119,44 +119,63 @@ app.prepare().then(() => {
 
   router.post('/login', async (ctx, next) => {
     const { email, pass: password, jwt: clientJWT } = await ctx.request.body
+    // If the client sent jwt to the server,
     if (clientJWT) {
-      // If the client sent jwt, the server validates it and send user data to the client.
-      // some code after.
-    } else {
-      // If "jwd" was not sent by the client, the server determines this is the first login.
-      // Get user data from db with an email address.
-      const foundData = await User.findOne({ email }, (err, userData) => {
+      const userData = await jwt.verify(clientJWT, SECRET_KEY, async (err, decode) => {
         if (err) {
+          console.log(err)
           ctx.response.status = 400
           ctx.response.body = err
           return next()
         }
-        return userData
+        return await User.findOne({ _id: decode.id }, (err, dbUserData) => {
+          if (err) {
+            ctx.response.status = 400
+            ctx.response.body = err
+            return next()
+          }
+          return dbUserData
+        })
       })
-      // If found user data on db, validates password with hash
-      if (foundData && bcrypt.compareSync(password, foundData.password)) {
-        // create json web token after validate password and correct it.
-        const jsonWebToken = jwt.sign(
-          {
-            userName: foundData.userName,
-            email: foundData.email,
-          },
-          SECRET_KEY,
-        )
-        // respond user data and json web token for client
-        ctx.response.status = 200
-        ctx.response.body = {
-          id: foundData._id,
-          userName: foundData.userName,
-          jsonWebToken,
-          error: false,
-        }
+      ctx.response.status = 200
+      ctx.response.body = {
+        id: userData._id,
+        userName: userData.userName,
+      }
+      return next()
+    }
+    // If "jwd" was not sent by the client, the server determines this is the first login.
+    // Get user data from db with an email address.
+    const foundData = await User.findOne({ email }, (err, userData) => {
+      if (err) {
+        ctx.response.status = 400
+        ctx.response.body = err
         return next()
       }
-      // If email address isn't on the db or password was incorrect, respond error state and flag.
-      ctx.response.status = 400
-      ctx.response.body = { error: true }
+      return userData
+    })
+    // If found user data on db, validates password with hash
+    if (foundData && bcrypt.compareSync(password, foundData.password)) {
+      // create json web token after validate password and correct it.
+      const jsonWebToken = jwt.sign(
+        {
+          id: foundData._id,
+          email,
+        },
+        SECRET_KEY,
+      )
+      // respond user data and json web token for client
+      ctx.response.status = 200
+      ctx.response.body = {
+        id: foundData._id,
+        userName: foundData.userName,
+        jsonWebToken,
+      }
+      return next()
     }
+    // If email address isn't on the db or password was incorrect, respond error state and flag.
+    ctx.response.status = 400
+    ctx.response.body = { error: true }
   })
 
   router.get('*', async (ctx) => {

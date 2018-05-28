@@ -5,7 +5,7 @@ import submitHandler from './submitHandler'
 
 const LoginError = ({ formControl }) =>
   (formControl.loginError ? (
-    <p className="errorMassage">
+    <p className="errorMessage">
       Your email address or password is incorrect.<br />Please check them and try again.
     </p>
   ) : null)
@@ -19,13 +19,13 @@ const LoginForm = (props) => {
       <p className="formOverlay__lead">Log in to share photos from friends and</p>
       <p className="formOverlay__lead">discover other accounts you&lsquo;ll love.</p>
       <form onSubmit={e => submitHandler(e, { ...props })} className="formOverlay__main">
-        <LoginError formControl={formControl} />
         <label className="formOverlay__elm" htmlFor="formOverlay__email">
           <input id="formOverlay__email" className="formOverlay__input" type="email" placeholder="Email" value={formInputData.email} onChange={e => emailInputHandler(e, formData)} required />
         </label>
         <label className="formOverlay__elm" htmlFor="formOverlay__pass">
           <input id="formOverlay__pass" className="formOverlay__input" type="password" placeholder="password" required />
         </label>
+        <LoginError formControl={formControl} />
         <button className="cmnBtn cmnBtn--dbl formOverlay__submit">Log in</button>
       </form>
     </FormOverlay>

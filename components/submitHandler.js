@@ -53,12 +53,12 @@ export default async (e, {
   const { jsonWebToken: jwt, userName: loginUser, id } = res.data
   // save jwt to session storage
   sessionStorage.setItem('jwt', jwt)
+  // delay at least 1 sec.
+  await new Promise(resolve => setTimeout(resolve, 1000))
   // save id and username to state
   fetchUserActions.succeededFetchUserData(id, loginUser)
   // Clear form
   formData.clearForm()
-  // delay at least 1 sec.
-  await new Promise(resolve => setTimeout(resolve, 1000))
   // hide loading view
   fetchControl.endFetching()
 }

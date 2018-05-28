@@ -1,5 +1,10 @@
 import { createAction } from 'redux-actions'
 
+// Initialize Loading
+export const initialzeLoading = createAction('INIT_LOADING')
+export const endInitializeLoading = createAction('CLOSE_LOADING')
+
+// Initialize data
 export const getInitData = createAction('GET_INIT_DATA')
 export const addLike = createAction('ADD_LIKE')
 

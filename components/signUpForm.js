@@ -3,8 +3,8 @@ import FormOverlay from './formOverlay'
 import { emailInputHandler, userNameInputHandler } from '../handlers/loginFormHandlers'
 import submitHandler from './submitHandler'
 
-const EmailError = ({ formControl }) => (formControl.existingEmail ? <p className="errorMassage">Your email address is already existing.</p> : null)
-const UserError = ({ formControl }) => (formControl.existingUser ? <p className="errorMassage">Your user name is already existing.</p> : null)
+const EmailError = ({ formControl }) => (formControl.existingEmail ? <p className="errorMessage">Your email address is already existing.</p> : null)
+const UserError = ({ formControl }) => (formControl.existingUser ? <p className="errorMessage">Your user name is already existing.</p> : null)
 
 const SingUpForm = (props) => {
   const { formData, formInputData } = props

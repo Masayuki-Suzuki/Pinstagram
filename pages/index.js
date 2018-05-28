@@ -24,6 +24,8 @@ import {
   saveInputEmail,
   saveInputUser,
   loginError,
+  initialzeLoading,
+  endInitializeLoading,
 } from '../actions/createActions'
 
 import Layout from '../components/layout'
@@ -31,6 +33,8 @@ import Posts from '../components/posts'
 import RenderLoginForm from '../components/renderLoginForm'
 import RenderSignUpForm from '../components/renderSignUpForm'
 import Loading from '../components/loading'
+import sendJsonWebToken from '../components/sendJsonWebToken'
+import FirstLoader from '../components/firstLoader'
 
 /* eslint-disable react/prefer-stateless-function */
 class Page extends Component {
@@ -42,9 +46,25 @@ class Page extends Component {
       initState: store.getState(),
     }
   }
+  componentDidMount() {
+    const {
+      fetchUserActions, fetchControl, formActions, initLoader,
+    } = this.props
+    const jwt = sessionStorage.getItem('jwt') || null
+    if (jwt) {
+      sendJsonWebToken(fetchUserActions, fetchControl, formActions, jwt).then(resolve => resolve)
+    }
+    // Hidden loading view
+    (async () => {
+      await new Promise(resolve => setTimeout(resolve, 1500))
+      initLoader.closeFirstLoader()
+    })()
+  }
+
   render() {
     return (
       <Layout {...this.props}>
+        <FirstLoader {...this.props} />
         <Posts posts={this.props.postData} clickLikeBtn={this.props.clickLikeBtn} />
         <RenderLoginForm {...this.props} />
         <RenderSignUpForm {...this.props} />
@@ -57,9 +77,17 @@ class Page extends Component {
 const mapStateToProps = state => state
 
 const mapDispatchToProps = (dispatch) => {
+  const openFirstLoader = () => {
+    dispatch(initialzeLoading())
+  }
+  const closeFirstLoader = () => {
+    dispatch(endInitializeLoading())
+  }
+
   const clickLikeBtn = () => {
     dispatch(addLike())
   }
+
   // For SignUp & Login Form
   const initializeForm = () => {
     dispatch(initForm())
@@ -82,6 +110,7 @@ const mapDispatchToProps = (dispatch) => {
   const failedLogin = () => {
     dispatch(loginError())
   }
+
   // Sign Up & Login handler
   // Maybe unnecessary
   const clearLoginForm = () => {
@@ -93,6 +122,7 @@ const mapDispatchToProps = (dispatch) => {
   const onChangePass = (val) => {
     dispatch(getLoginPass(val))
   }
+
   // Fetch user data
   const clearUserData = () => {
     dispatch(initUserData())
@@ -106,6 +136,7 @@ const mapDispatchToProps = (dispatch) => {
   const succeededFetchUserData = (id, userName) => {
     dispatch(receiveUserDataSuceeded(id, userName))
   }
+
   // For search input box in Header
   const onChangeSearchBox = (text) => {
     dispatch(searchPostData(text))
@@ -124,7 +155,12 @@ const mapDispatchToProps = (dispatch) => {
   const saveForm = (email, user) => {
     dispatch(saveFormData(email, user))
   }
+
   return {
+    initLoader: {
+      openFirstLoader,
+      closeFirstLoader,
+    },
     formActions: {
       initializeForm,
       openLoginForm,
