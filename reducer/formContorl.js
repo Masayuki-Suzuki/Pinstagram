@@ -6,6 +6,7 @@ const formControl = handleActions(
       ...state,
       isSignUp: false,
       isLogIn: false,
+      isPost: false,
       existingUser: false,
       existingEmail: false,
       loginError: false,
@@ -20,10 +21,15 @@ const formControl = handleActions(
       isLogIn: true,
       isSignUp: false,
     }),
+    SHOW_POST_FORM: state => ({
+      ...state,
+      isPost: true,
+    }),
     HIDDEN_FORM: state => ({
       ...state,
       isSignUp: false,
       isLogIn: false,
+      isPost: false,
       existingUser: false,
       existingEmail: false,
       loginError: false,
@@ -44,6 +50,7 @@ const formControl = handleActions(
   {
     isSignUp: false,
     isLogIn: false,
+    isPost: false,
     existingUser: false,
     existingEmail: false,
     loginError: false,

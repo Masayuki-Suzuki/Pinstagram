@@ -26,12 +26,14 @@ import {
   loginError,
   initialzeLoading,
   endInitializeLoading,
+  showPostForm,
 } from '../actions/createActions'
 
 import Layout from '../components/layout'
 import Posts from '../components/posts'
 import RenderLoginForm from '../components/renderLoginForm'
 import RenderSignUpForm from '../components/renderSignUpForm'
+import RenderPostForm from '../components/renderPostForm'
 import Loading from '../components/loading'
 import sendJsonWebToken from '../components/sendJsonWebToken'
 import FirstLoader from '../components/firstLoader'
@@ -68,6 +70,7 @@ class Page extends Component {
         <Posts posts={this.props.postData} clickLikeBtn={this.props.clickLikeBtn} />
         <RenderLoginForm {...this.props} />
         <RenderSignUpForm {...this.props} />
+        <RenderPostForm {...this.props} />
         <Loading {...this.props} />
       </Layout>
     )
@@ -97,6 +100,9 @@ const mapDispatchToProps = (dispatch) => {
   }
   const openSignUpForm = () => {
     dispatch(showSignUpForm())
+  }
+  const openPostForm = () => {
+    dispatch(showPostForm())
   }
   const closeForm = () => {
     dispatch(hiddenForm())
@@ -165,6 +171,7 @@ const mapDispatchToProps = (dispatch) => {
       initializeForm,
       openLoginForm,
       openSignUpForm,
+      openPostForm,
       closeForm,
       existUser,
       existEmail,

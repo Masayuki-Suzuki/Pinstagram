@@ -40,9 +40,16 @@ const RenderFormBtn = (props) => {
   )
 }
 
-const RenderUser = ({ userData, fetchUserActions, fetchControl }) => (
+const RenderUser = ({
+  formActions, userData, fetchUserActions, fetchControl,
+}) => (
   <ul className="userInfo">
     <li className="user">{userData.userName}</li>
+    <li className="postNewPhoto">
+      <button className="cmnBtn" onClick={() => formActions.openPostForm()}>
+        Post
+      </button>
+    </li>
     <li className="logOut">
       <button className="cmnBtn" onClick={() => logOutHandler(fetchUserActions, fetchControl)}>
         Log Out
