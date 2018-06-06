@@ -10,6 +10,9 @@ const SingUpForm = (props) => {
   const { formData, formInputData } = props
   return (
     <FormOverlay {...props}>
+      <div className="formOverlay__logo">
+        <img src="/img/pinstagram-icon.svg" alt="Pinstagram" />
+      </div>
       <h2 className="formOverlay__heading">Welcome to Pinstagram</h2>
       <h3 className="formOverlay__subheading">Sign up to share photos</h3>
       <p className="formOverlay__lead">Free, unlimited access to content</p>

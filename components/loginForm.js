@@ -14,6 +14,9 @@ const LoginForm = (props) => {
   const { formData, formInputData, formControl } = props
   return (
     <FormOverlay {...props}>
+      <div className="formOverlay__logo">
+        <img src="/img/pinstagram-icon.svg" alt="Pinstagram" />
+      </div>
       <h2 className="formOverlay__heading">Login to share photos</h2>
       <h3 className="formOverlay__subheading">Find new ideas to try</h3>
       <p className="formOverlay__lead">Log in to share photos from friends and</p>
