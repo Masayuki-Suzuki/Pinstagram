@@ -1,0 +1,10 @@
+.cameraIcon {
+  &:before {
+    color: #888;
+    content: '\f083';
+    display: block;
+    font-family: fontawesome;
+    font-size: 3.4rem;
+    margin: 0 0 10px;
+  }
+}

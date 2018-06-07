@@ -1,0 +1,63 @@
+.postForm {
+  &__container {
+    padding: 15px 0 20px;
+    width: 60vw;
+  }
+  &__title {
+    border-bottom: solid 1px #ccc;
+    padding: 0 0 15px;
+  }
+  &__main {
+    padding: 30px 30px 0;
+  }
+  &__wrap {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 0 0 20px;
+    width: 90%;
+  }
+  &__elm {
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 400;
+    text-align: left;
+    margin: 0 0 20px;
+    width: 100%;
+    &:last-of-type {
+      margin: 0;
+    }
+    input,
+    textarea {
+      display: block;
+      border: solid 1px #aaa;
+      border-radius: 4px;
+      margin: 5px 0 0;
+      padding: 10px;
+      width: 100%;
+      outline: none;
+      &:focus {
+        box-shadow: 0 0 0 4px rgba(0,132,255,.5);
+        outline: 0;
+      }
+    }
+  }
+  &__preview {
+    border: dashed 2px #aaa;
+    border-radius: 6px;
+    color: #777;
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 600;
+    padding: 0 20px;
+    width: 35%;
+  }
+  &__inputGroup {
+    width: 60%;
+  }
+  &__submit {
+    margin:  0 auto;
+    text-align: right;
+    width: 90%;
+  }
+}
